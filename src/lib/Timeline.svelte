@@ -4,13 +4,15 @@
     currentScenario,
     yourData,
     selectedPersonData,
+    yourBirthYear,
+    selecterPersonBirthYear,
   } from "../store/store";
   import { data } from "../assets/data/temperatureData";
 
   const margin = {
-    top: 60,
+    top: 50,
     right: 0,
-    bottom: 0,
+    bottom: 50,
     left: 0,
   };
   let width = 200;
@@ -45,7 +47,8 @@
   const yearTextOffsetX = 10;
   const yearTextOffsetY = 35;
 
-  const yOffsetScale = d3.scaleLinear()
+  const yOffsetScale = d3
+    .scaleLinear()
     .domain([0, height])
     .range([0, screen.height]);
 
@@ -58,70 +61,81 @@
   let svg;
   let imageOffset = 0;
 
-  $: currentYIndex = Math.floor(yScale.invert(imageOffset + yOffsetScale(imageOffset)));
+  $: currentYIndex = Math.floor(
+    yScale.invert(imageOffset + yOffsetScale(imageOffset))
+  );
 </script>
 
 <svelte:window on:scroll={handleScroll} />
 
 <div id="chartWrapper">
   <div id="chart" bind:clientWidth={width}>
-    <svg
-      {width}
-      height={height + margin.top}
-      transform={"translate(0," + margin.top + ")"}
-      bind:this={svg}
-    >
-      <g id="background" transform={`translate(0,${margin.top})`}>
-        {#each $yourData as d, i (d.Year)}
-          <rect
-            class="bgRect1"
-            id={`bgRect1_${i + 1}`}
-            width={width / 2 - margin.left}
-            height={yScale(1) - yScale(0)}
-            x={0}
-            y={yScale(d.Year - 1988) - margin.top}
-            stroke="black"
-            stroke-width={d.Year - 1988 === currentYIndex ? 5 : 1}
-            fill={d.historic === "NA"
-              ? "#bdbdbd"
-              : tempColorScale(d[$currentScenario])}
-          >
-          </rect>
-          <text x={0} y={yScale(d.Year - 1988) - margin.top}
-            >{d[$currentScenario]}</text
-          >
-        {/each}
-      </g>
-      <g id="background2" transform={`translate(${width / 2},${margin.top})`}>
-        {#each $selectedPersonData as d, i (d.Year)}
-          <rect
-            class="bgRect2"
-            id={`bgRect2_${i + 1}`}
-            width={width / 2 - margin.left}
-            height={yScale(1) - yScale(0)}
-            x={0}
-            y={yScale(d.Year - 1988) - margin.top}
-            stroke="black"
-            stroke-width={d.Year - 1988 === currentYIndex ? 5 : 1}
-            fill={d.historic === "NA"
-              ? "#bdbdbd"
-              : tempColorScale(d[$currentScenario])}
-          >
-          </rect>
-          <text x={0} y={yScale(d.Year - 1988) - margin.top}
-            >{d[$currentScenario]}</text
-          >
-        {/each}</g
+    {#if $yourData && $selectedPersonData && $yourBirthYear && $selecterPersonBirthYear}
+      <svg
+        {width}
+        height={height + margin.top}
+        transform={"translate(0," + margin.top + ")"}
+        bind:this={svg}
       >
-      <image
-        class="you"
-        width={100}
-        height={100}
-        x={center - 50}
-        y={yScale(currentYIndex)}
-        xlink:href={"baby.png"}
-      />
-    </svg>
+        <g id="background" transform={`translate(0,${margin.top})`}>
+          {#each $yourData as d, i (d.Year)}
+            <rect
+              class="bgRect1"
+              id={`bgRect1_${i + 1}`}
+              width={width / 2 - margin.left}
+              height={yScale(1) - yScale(0)}
+              x={0}
+              y={yScale(d.Year - $yourBirthYear) + (yScale(1) - yScale(0))}
+              stroke="black"
+              stroke-width={d.Year - $yourBirthYear === currentYIndex ? 5 : 1}
+              fill={d.historic === "NA"
+                ? "#bdbdbd"
+                : tempColorScale(d[$currentScenario])}
+            >
+            </rect>
+            <text
+              x={0}
+              y={yScale(d.Year - $yourBirthYear) + (yScale(1) - yScale(0))}
+              >{d[$currentScenario]}, {i}</text
+            >
+          {/each}
+        </g>
+        <g id="background2" transform={`translate(${width / 2},${margin.top})`}>
+          {#each $selectedPersonData as d, i (d.Year)}
+            <rect
+              class="bgRect2"
+              id={`bgRect2_${i + 1}`}
+              width={width / 2 - margin.left}
+              height={yScale(1) - yScale(0)}
+              x={0}
+              y={yScale(d.Year - $selecterPersonBirthYear) +
+                (yScale(1) - yScale(0))}
+              stroke="black"
+              stroke-width={d.Year - $selecterPersonBirthYear === currentYIndex
+                ? 5
+                : 1}
+              fill={d.historic === "NA"
+                ? "#bdbdbd"
+                : tempColorScale(d[$currentScenario])}
+            >
+            </rect>
+            <text
+              x={0}
+              y={yScale(d.Year - $selecterPersonBirthYear) +
+                (yScale(1) - yScale(0))}>{d[$currentScenario]}</text
+            >
+          {/each}</g
+        >
+        <image
+          class="you"
+          width={100}
+          height={100}
+          x={center - 50}
+          y={yScale(currentYIndex)}
+          xlink:href={"baby.png"}
+        />
+      </svg>
+    {/if}
   </div>
 </div>
 
