@@ -44,7 +44,25 @@
   const tempTextOffsetX = 80;
   const yearTextOffsetX = 10;
   const yearTextOffsetY = 35;
+
+  const yOffsetScale = d3.scaleLinear()
+    .domain([0, height])
+    .range([0, screen.height]);
+
+  const handleScroll = () => {
+    if (!svg) return;
+    const { top = 0 } = svg.getBoundingClientRect() || {};
+    imageOffset = Math.max(0, -top);
+  };
+
+  let svg;
+  let imageOffset = 0;
+
+  $: currentYIndex = Math.floor(yScale.invert(imageOffset + yOffsetScale(imageOffset)));
+  $: console.log($yourData)
 </script>
+
+<svelte:window on:scroll={handleScroll} />
 
 <div id="chartWrapper">
   <div id="chart" bind:clientWidth={width}>
@@ -52,6 +70,7 @@
       {width}
       height={height + margin.top}
       transform={"translate(0," + margin.top + ")"}
+      bind:this={svg}
     >
       <g id="background" transform={`translate(0,${margin.top})`}>
         {#each $yourData as d, i}
@@ -63,6 +82,7 @@
             x={0}
             y={yScale(d.Year - 1988) - margin.top}
             stroke="black"
+            stroke-width={d.Year - 1988 === currentYIndex ? 5 : 1}
             fill={d.historic === "NA"
               ? "#bdbdbd"
               : tempColorScale(d[$currentScenario])}
@@ -83,6 +103,7 @@
             x={0}
             y={yScale(d.Year - 1988) - margin.top}
             stroke="black"
+            stroke-width={d.Year - 1988 === currentYIndex ? 5 : 1}
             fill={d.historic === "NA"
               ? "#bdbdbd"
               : tempColorScale(d[$currentScenario])}
@@ -98,7 +119,7 @@
         width={100}
         height={100}
         x={center - 50}
-        y={yScale(0)}
+        y={yScale(currentYIndex)}
         xlink:href={"baby.png"}
       />
     </svg>
