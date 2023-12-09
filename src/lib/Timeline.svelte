@@ -1,0 +1,112 @@
+<script>
+  import * as d3 from "d3";
+  import {
+    currentScenario,
+    yourData,
+    selectedPersonData,
+  } from "../store/store";
+  import { data } from "../assets/data/temperatureData";
+
+  const margin = {
+    top: 60,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  };
+  let width = 200;
+  const height = 8000 - margin.top;
+  $: center = width / 2;
+
+  const yScale = d3.scaleLinear().domain([0, 100]).range([margin.top, height]);
+
+  const tempColorScale = d3
+    .scaleThreshold()
+    .domain([0, 0.4, 0.8, 1.2, 1.6, 2, 2.4, 2.8, 3.2, 3.6, 4, 4.4, 4.8])
+    .range([
+      "#213468",
+      "#2171b5",
+      "#6baed6",
+      "#deebf7",
+      "#fff5f0",
+      "#fee0d2",
+      "#fcbba1",
+      "#fc9272",
+      "#fb6a4a",
+      "#ef3b2c",
+      "#cb181d",
+      "#a50f15",
+      "#67000d",
+    ]);
+
+  const numbers = Array.from({ length: 100 }, (_, index) => index + 1);
+  const imgDimension = 40;
+  const ageRectWidth = 80;
+  const tempTextOffsetX = 80;
+  const yearTextOffsetX = 10;
+  const yearTextOffsetY = 35;
+</script>
+
+<div id="chartWrapper">
+  <div id="chart" bind:clientWidth={width}>
+    <svg
+      {width}
+      height={height + margin.top}
+      transform={"translate(0," + margin.top + ")"}
+    >
+      <g id="background" transform={`translate(0,${margin.top})`}>
+        {#each $yourData as d, i}
+          <rect
+            class="bgRect1"
+            id={`bgRect1_${i + 1}`}
+            width={width / 2 - margin.left}
+            height={yScale(1) - yScale(0)}
+            x={0}
+            y={yScale(d.Year - 1988) - margin.top}
+            stroke="black"
+            fill={d.historic === "NA"
+              ? "#bdbdbd"
+              : tempColorScale(d[$currentScenario])}
+          >
+          </rect>
+          <text x={0} y={yScale(d.Year - 1988) - margin.top}
+            >{d[$currentScenario]}</text
+          >
+        {/each}
+      </g>
+      <g id="background2" transform={`translate(${width / 2},${margin.top})`}>
+        {#each $selectedPersonData as d, i}
+          <rect
+            class="bgRect2"
+            id={`bgRect2_${i + 1}`}
+            width={width / 2 - margin.left}
+            height={yScale(1) - yScale(0)}
+            x={0}
+            y={yScale(d.Year - 1988) - margin.top}
+            stroke="black"
+            fill={d.historic === "NA"
+              ? "#bdbdbd"
+              : tempColorScale(d[$currentScenario])}
+          >
+          </rect>
+          <text x={0} y={yScale(d.Year - 1988) - margin.top}
+            >{d[$currentScenario]}</text
+          >
+        {/each}</g
+      >
+      <image
+        class="you"
+        width={100}
+        height={100}
+        x={center - 50}
+        y={yScale(0)}
+        xlink:href={"baby.png"}
+      />
+    </svg>
+  </div>
+</div>
+
+<style>
+  #chart {
+    width: 100%;
+  }
+</style>

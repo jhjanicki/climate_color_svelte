@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  -webkit-transition: transform 1s ease-in-out;
+  transition: transform 1s ease-in-out;
+  overflow-x: hidden;
+}
