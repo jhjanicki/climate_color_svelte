@@ -17,7 +17,7 @@
   const height = 8000 - margin.top;
   $: center = width / 2;
 
-  const yScale = d3.scaleLinear().domain([0, 100]).range([margin.top, height]);
+  const yScale = d3.scaleLinear().domain([1, 100]).range([margin.top, height]);
 
   const tempColorScale = d3
     .scaleThreshold()
@@ -59,7 +59,6 @@
   let imageOffset = 0;
 
   $: currentYIndex = Math.floor(yScale.invert(imageOffset + yOffsetScale(imageOffset)));
-  $: console.log($yourData)
 </script>
 
 <svelte:window on:scroll={handleScroll} />
@@ -73,7 +72,7 @@
       bind:this={svg}
     >
       <g id="background" transform={`translate(0,${margin.top})`}>
-        {#each $yourData as d, i}
+        {#each $yourData as d, i (d.Year)}
           <rect
             class="bgRect1"
             id={`bgRect1_${i + 1}`}
@@ -94,7 +93,7 @@
         {/each}
       </g>
       <g id="background2" transform={`translate(${width / 2},${margin.top})`}>
-        {#each $selectedPersonData as d, i}
+        {#each $selectedPersonData as d, i (d.Year)}
           <rect
             class="bgRect2"
             id={`bgRect2_${i + 1}`}
