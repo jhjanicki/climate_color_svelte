@@ -22,7 +22,11 @@
 
 <div id="celebrityContainer">
   {#each celebrityData as d, i}
-    <div class="celebrityWrapper" on:click={update}>
+    <div
+      class="celebrityWrapper"
+      style="background-color: {d.color}"
+      on:click={update}
+    >
       <img class="icon" id={`icon${d.year}`} src={`./${d.imgName}`} />
       <p class="personYear">{d.year}</p>
       <p class="person">{d.name}</p>
@@ -54,38 +58,6 @@
   .celebrityWrapper:hover {
     font-weight: 700;
     cursor: pointer;
-  }
-
-  .celebrityWrapper:nth-child(1) {
-    background-color: #2171b5;
-  }
-
-  .celebrityWrapper:nth-child(2) {
-    background-color: #2171b5;
-  }
-
-  .celebrityWrapper:nth-child(3) {
-    background-color: #2171b5;
-  }
-
-  .celebrityWrapper:nth-child(4) {
-    background-color: #6baed6;
-  }
-
-  .celebrityWrapper:nth-child(5) {
-    background-color: #deebf7;
-  }
-
-  .celebrityWrapper:nth-child(6) {
-    background-color: #deebf7;
-  }
-
-  .celebrityWrapper:nth-child(7) {
-    background-color: #deebf7;
-  }
-
-  .celebrityWrapper:nth-child(8) {
-    background-color: #fff5f0;
   }
 
   .icon {
