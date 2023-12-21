@@ -64,33 +64,44 @@
 
 <div
   id="birthYearContainer"
-  style="background-color: {tempColorScale($yourBirthYearTemp)}"
+  style="background-color: {tempColorScale(
+    $yourBirthYearTemp
+  )}; border: {$yourBirthYearTemp ? 'none' : '0.5px solid black'}"
 >
   <div id="imgContainer">
     <img id="you" class="icon" {src} />
   </div>
-  <Range on:change={updateSlider} id="basic-slider" />
-  <p id="birthYearText">Your birth year: {$yourBirthYear}</p>
+  <Range on:change={updateSlider} id="slider" />
+  <p id="birthYearText">Your birth year: {$yourBirthYear || ""}</p>
   <p id="birthYearInstruction">
-    Color of tiles represent the temperature anomaly of your birth year. Age
-    ranging from 1923 to 2023.
+    Background color represents the temperature anomaly of your birth year. Year
+    from 1923 to 2023.
   </p>
 </div>
 
 <style>
   #birthYearContainer {
     border-radius: 10px;
-    height: 365px;
-    border: 0.5px solid black;
+    height: 100%;
+    max-height: 400px;
   }
 
-  #imgContainer {
+  #birthYearContainer #slider,
+  #birthYearContainer img {
+    margin: 10px 0px;
+  }
+
+  #birthYearContainer #imgContainer {
     margin: 20px auto;
   }
 
   #birthYearInstruction {
     text-align: left;
     margin: auto 20px;
+  }
+
+  #sliderWrapper {
+    padding: 0px 10px;
   }
 
   #birthYearText {

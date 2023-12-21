@@ -3,7 +3,7 @@
   import { fly, fade } from "svelte/transition";
 
   // Props
-  export let min = 0;
+  export let min = 1;
   export let max = 100;
   export let initialValue = 0;
   export let id = null;
@@ -243,20 +243,20 @@
   .range__wrapper:focus-visible > .range__track {
     box-shadow:
       0 0 0 2px white,
-      0 0 0 3px var(--track-focus, #6185ff);
+      0 0 0 3px var(--track-focus, #fc9272);
   }
 
   .range__track {
     height: 6px;
-    background-color: var(--track-bgcolor, #d0d0d0);
+    background-color: var(--track-bgcolor, #f0f0f0);
     border-radius: 999px;
   }
 
   .range__track--highlighted {
-    background-color: var(--track-highlight-bgcolor, #6185ff);
+    background-color: var(--track-highlight-bgcolor, #fc9272);
     background: var(
       --track-highlight-bg,
-      linear-gradient(90deg, #6185ff, #9c65ff)
+      linear-gradient(90deg, #fc9272, #ef3b2c)
     );
     width: 0;
     height: 6px;
@@ -271,7 +271,7 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: var(--thumb-bgcolor, white);
+    background-color: var(--thumb-bgcolor, #ef3b2c);
     cursor: pointer;
     border-radius: 999px;
     margin-top: -8px;
@@ -288,7 +288,7 @@
     box-shadow:
       0 1px 1px 0 rgba(0, 0, 0, 0.14),
       0 1px 2px 1px rgba(0, 0, 0, 0.2),
-      0 0 0 6px var(--thumb-holding-outline, rgba(113, 119, 250, 0.3));
+      0 0 0 6px var(--thumb-holding-outline, rgba(255, 255, 255, 0.3));
   }
 
   .range__tooltip {
@@ -300,8 +300,8 @@
     padding: 4px 0;
     border-radius: 4px;
     text-align: center;
-    background-color: var(--tooltip-bgcolor, #6185ff);
-    background: var(--tooltip-bg, linear-gradient(45deg, #6185ff, #9c65ff));
+    background-color: var(--tooltip-bgcolor, #fc9272);
+    background: var(--tooltip-bg, linear-gradient(45deg, #fc9272, #ef3b2c));
   }
 
   .range__tooltip::after {
@@ -310,7 +310,7 @@
     position: absolute;
     height: 7px;
     width: 7px;
-    background-color: var(--tooltip-bgcolor, #6185ff);
+    background-color: var(--tooltip-bgcolor, #fc9272);
     bottom: -3px;
     left: calc(50% - 3px);
     clip-path: polygon(0% 0%, 100% 100%, 0% 100%);

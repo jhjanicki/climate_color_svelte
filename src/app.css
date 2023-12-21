@@ -10,3 +10,7 @@ body {
   transition: transform 1s ease-in-out;
   overflow-x: hidden;
 }
+
+p {
+	margin: 0px;
+}

@@ -32,32 +32,60 @@
       <p class="person">{d.name}</p>
     </div>
   {/each}
-  <p>Compared to {$selectedPerson}, born in {$selecterPersonBirthYear}</p>
 </div>
 
 <style>
-  p {
-    margin: 0px;
-  }
-
   #celebrityContainer {
-    text-align: center;
-    max-width: 800px;
+    text-align: left;
     margin-left: auto;
     margin-right: auto;
   }
-
   .celebrityWrapper {
     text-align: center;
     display: inline-block;
     height: 180px;
     width: 180px;
     border-radius: 10px;
+    margin: 4px 2px;
+  }
+
+  .celebrityWrapper:nth-child(1) {
+    background-color: #2171b5;
+  }
+
+  .celebrityWrapper:nth-child(2) {
+    background-color: #2171b5;
+  }
+
+  .celebrityWrapper:nth-child(3) {
+    background-color: #2171b5;
+  }
+
+  .celebrityWrapper:nth-child(4) {
+    background-color: #6baed6;
+  }
+
+  .celebrityWrapper:nth-child(5) {
+    background-color: #deebf7;
+  }
+
+  .celebrityWrapper:nth-child(6) {
+    background-color: #deebf7;
+  }
+
+  .celebrityWrapper:nth-child(7) {
+    background-color: #deebf7;
+  }
+
+  .celebrityWrapper:nth-child(8) {
+    background-color: #fff5f0;
   }
 
   .celebrityWrapper:hover {
-    font-weight: 700;
     cursor: pointer;
+    box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.4);
+    transition: all 0.25s ease;
+    font-weight: 700;
   }
 
   .icon {
