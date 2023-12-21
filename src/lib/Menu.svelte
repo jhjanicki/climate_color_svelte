@@ -55,11 +55,6 @@
     margin-bottom: 1rem;
   }
 
-  .close {
-    display: none;
-    transition: 1s all ease;
-  }
-
   #menuTitleWrapper {
     margin-left: auto;
     margin-right: auto;

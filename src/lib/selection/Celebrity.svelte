@@ -8,7 +8,10 @@
     selectedPerson,
   } from "../../store/store";
 
-  function update(event) {
+  let selectedElementIndex = null;
+
+  function update(event, i) {
+    selectedElementIndex = i;
     $selecterPersonBirthYear =
       event.currentTarget.querySelector(".personYear").textContent;
     $selecterPersonDeathYear = +$selecterPersonBirthYear + 99;
@@ -23,9 +26,9 @@
 <div id="celebrityContainer">
   {#each celebrityData as d, i}
     <div
-      class="celebrityWrapper"
+      class="celebrityWrapper {selectedElementIndex === i ? 'selected' : ''}"
       style="background-color: {d.color}"
-      on:click={update}
+      on:click={(event) => update(event, i)}
     >
       <img class="icon" id={`icon${d.year}`} src={`./${d.imgName}`} />
       <p class="personYear">{d.year}</p>
@@ -35,11 +38,15 @@
 </div>
 
 <style>
+  .selected {
+    font-weight: 700;
+  }
   #celebrityContainer {
     text-align: left;
     margin-left: auto;
     margin-right: auto;
   }
+
   .celebrityWrapper {
     text-align: center;
     display: inline-block;

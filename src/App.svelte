@@ -77,14 +77,14 @@
         </p>
         <p>
           Shared Socioeconomic Pathways (SSPs) are climate change scenarios
-          projecting societal, demographic and economic changes up to 2100. In
-          the SSP labels, the first number refers to the assumed shared
-          socio-economic pathway (1: Sustainability, 2: Middle of the Road, 3:
-          Regional Rivalry, 4: Inequality, 5: Fossil-fueled Development), and
-          the second refers to the approximate global effective radiative
-          forcing (ERF) in 2100. Pick one of these scenarios to see the
-          proejcted annual temperature after 2023, up until 2100, depending on
-          the socioeconomic global changes.
+          projecting societal, demographic and economic changes up to 2100.
+          According to IPCC, in the SSP labels, the first number refers to the
+          assumed shared socio-economic pathway (1: Sustainability, 2: Middle of
+          the Road, 3: Regional Rivalry, 4: Inequality, 5: Fossil-fueled
+          Development), and the second refers to the approximate global
+          effective radiative forcing (ERF) in 2100. Pick one of these scenarios
+          to see the proejcted annual temperature anomalies after 2023 up until
+          2100.
         </p>
       </div>
       <Scenarios />
@@ -93,11 +93,9 @@
   </div>
 </div>
 
-<div class="scrollerLine">
-  <Timeline />
-</div>
+<Timeline />
 
-<div class="conclusion">
+<div class="conclusion {$started ? '' : 'none'}">
   <p>
     Download your climate colors, which ranges from <span id="tempLow"></span>
     in <span id="yearLow"></span> to
@@ -110,7 +108,7 @@
 
 <div id="chart2"></div>
 
-<div class="conclusion">
+<div class="conclusion {$started ? '' : 'none'}">
   <p>
     <b>Data:</b><br />
     Annual temperature anomaly relative to pre-industrial levels (1850-1900), until
@@ -252,8 +250,7 @@
   #sspText {
     max-width: 900px;
     text-align: justify;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 20px;
   }
 
   .button {
@@ -284,5 +281,34 @@
     font-size: 18px;
     line-height: 25px;
     text-align: center;
+  }
+
+  .button {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    color: #67000d;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    width: 130px;
+    text-align: center;
+    display: block;
+    border: 1px solid #67000d;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .button:hover {
+    background-color: #67000d;
+    color: white;
+    transition: all 0.5s ease;
+    border: 1px solid white;
+    cursor: pointer;
+  }
+
+  .none {
+    display: none;
   }
 </style>

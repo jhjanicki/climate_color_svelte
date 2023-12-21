@@ -95,7 +95,13 @@
           >
           </rect>
           <text
-            x={0}
+            x={yearTextOffsetX}
+            class="year1"
+            y={yScale(d.Year - $yourBirthYear) + (yScale(1) - yScale(0)) + 40}
+            >{+$selecterPersonBirthYear + i}</text
+          >
+          <text
+            x={center - tempTextOffsetX}
             y={yScale(d.Year - $yourBirthYear) + (yScale(1) - yScale(0)) + 40}
             >{d[$currentScenario].toFixed(2)}, {i}</text
           >

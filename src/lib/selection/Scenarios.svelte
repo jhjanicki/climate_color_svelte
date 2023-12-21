@@ -2,65 +2,65 @@
   import { scenarioData } from "../../assets/data/scenarioData";
   import { currentScenario } from "../../store/store";
 
-  function update(event, id) {
+  let selectedElementIndex = null;
+
+  function update(event, id, i) {
+    selectedElementIndex = i;
     $currentScenario = id;
   }
 </script>
 
 <div id="scenariosContainer">
-  {#each scenarioData as d}
-    <div class="scenario" on:click={() => update(event, d.id)}>
+  {#each scenarioData as d, i}
+    <div
+      class="scenarioWrapper {selectedElementIndex === i ? 'selected' : ''}"
+      on:click={(event) => update(event, d.id, i)}
+    >
       <p>{d.name}</p>
       <img class="icon" src="./baby.png" />
       <p>{d.description}</p>
     </div>
   {/each}
-  <p>Scenario selected: {$currentScenario}</p>
 </div>
 
 <style>
-  #scenariosContainer {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+  .selected {
+    font-weight: 700;
   }
-
-  .scenario {
+  .scenarioWrapper {
     text-align: center;
     display: inline-block;
     height: 180px;
     width: 180px;
     border-radius: 10px;
-    z-index: 1000;
+    margin: 4px 2px;
   }
 
-  .scenario:hover {
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .scenario:nth-child(1) {
+  .scenarioWrapper:nth-child(1) {
     background-color: #fff5f0;
   }
 
-  .scenario:nth-child(2) {
+  .scenarioWrapper:nth-child(2) {
     background-color: #fee0d2;
   }
 
-  .scenario:nth-child(3) {
+  .scenarioWrapper:nth-child(3) {
     background-color: #fc9272;
   }
 
-  .scenario:nth-child(4) {
+  .scenarioWrapper:nth-child(4) {
     background-color: #cb181d;
   }
 
-  .scenario:nth-child(5) {
+  .scenarioWrapper:nth-child(5) {
     background-color: #67000d;
     color: white;
   }
-  .icon {
-    width: 100px;
-    display: inline-block;
+
+  .scenarioWrapper:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.4);
+    transition: all 0.25s ease;
+    font-weight: 700;
   }
 </style>
