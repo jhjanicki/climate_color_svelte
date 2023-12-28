@@ -4,27 +4,46 @@
   import Scenarios from "./lib/selection/Scenarios.svelte";
   import Timeline from "./lib/Timeline.svelte";
   import Menu from "./lib/Menu.svelte";
-  // import "bootstrap/dist/css/bootstrap.min.css";
+  import Modal from "./lib/Modal.svelte";
+  import { modalOpen } from "./store/store";
+
+  import gsap from "gsap";
+  import ScrollTrigger from "gsap/ScrollTrigger";
+  import { onMount } from "svelte";
 
   import {
     yourBirthYear,
+    selectedPerson,
     selecterPersonBirthYear,
     currentScenario,
-    yourData,
-    selectedPersonData,
     started,
   } from "./store/store";
 
-  function start() {
+  import { formatScenarioText } from "./lib/utils";
+
+  const start = () => {
     if ($yourBirthYear && $selecterPersonBirthYear && $currentScenario) {
       $started = true;
     } else {
       $started = false;
-      // $(".modal").css("display", "block");
+      $modalOpen = true;
     }
-  }
+  };
+
+  onMount(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    ScrollTrigger.create({
+      trigger: "#selectionWrapper",
+      start: "top top",
+      end: `bottom ${35}px`,
+      pin: "#menu",
+      markers: false,
+    });
+  });
 </script>
 
+<Modal />
 <div class="header">
   <div class="headerText">
     <h1>A lifetime of change</h1>
@@ -89,7 +108,21 @@
       </div>
       <Scenarios />
     </div>
-    <p id="start" class="button" on:click={start}>start</p>
+    <div class={$started ? "none" : "show"}>
+      <p id="start" class="button" on:click={start}>start</p>
+    </div>
+    <div class="scroll-arrow {$started ? 'show' : 'none'}">
+      ↓<br />
+      <span class="arrow-text"
+        >Compare your temperatures with <span id="arrowPerson"
+          >{$selectedPerson}</span
+        >
+        under the
+        <span id="arrowScenario"
+          >{$currentScenario ? formatScenarioText($currentScenario) : ""}</span
+        > scenario</span
+      >
+    </div>
   </div>
 </div>
 
@@ -308,7 +341,35 @@
     cursor: pointer;
   }
 
-  .none {
-    display: none;
+  .scroll-arrow {
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+    animation: arrowAnim 5s ease-in-out infinite;
+    color: black;
+    left: 50%;
+    text-align: center;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  .arrow-text {
+    display: inline-block;
+    animation: blink 5s ease-in-out infinite;
+  }
+  @keyframes arrowAnim {
+    0%,
+    100% {
+      transform: translateY(1rem);
+    }
+    50% {
+      transform: translateY(-1rem);
+    }
+  }
+
+  #arrowPerson,
+  #arrowScenario {
+    font-weight: 700;
   }
 </style>

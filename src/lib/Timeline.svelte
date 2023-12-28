@@ -8,10 +8,9 @@
     selecterPersonBirthYear,
     started,
   } from "../store/store";
-  import { data } from "../assets/data/temperatureData";
 
   const margin = {
-    top: 100,
+    top: 60,
     right: 0,
     bottom: 78,
     left: 0,
@@ -98,12 +97,12 @@
             x={yearTextOffsetX}
             class="year1"
             y={yScale(d.Year - $yourBirthYear) + (yScale(1) - yScale(0)) + 40}
-            >{+$selecterPersonBirthYear + i}</text
+            >{+$yourBirthYear + i}</text
           >
           <text
             x={center - tempTextOffsetX}
             y={yScale(d.Year - $yourBirthYear) + (yScale(1) - yScale(0)) + 40}
-            >{d[$currentScenario].toFixed(2)}, {i}</text
+            >{d[$currentScenario].toFixed(2)}</text
           >
         {/each}
       </g>
@@ -127,9 +126,19 @@
           >
           </rect>
           <text
+            class="year2"
+            text-anchor="end"
+            x={width / 2 - yearTextOffsetX}
+            y={yScale(d.Year - $selecterPersonBirthYear) +
+              (yScale(1) - yScale(0)) +
+              40}>{+$selecterPersonBirthYear + i}</text
+          >
+
+          <text
             x={0}
             y={yScale(d.Year - $selecterPersonBirthYear) +
-              (yScale(1) - yScale(0))}>{d[$currentScenario]}</text
+              (yScale(1) - yScale(0)) +
+              40}>{d[$currentScenario].toFixed(2)}</text
           >
         {/each}</g
       >
@@ -138,7 +147,7 @@
         width={imgDimension * 2}
         height={imgDimension * 2}
         x={center - imgDimension * 2}
-        y={yScale(currentYIndex + 3) - 60}
+        y={yScale(currentYIndex + 2) - 20}
         xlink:href={"baby.png"}
       />
       <image
@@ -146,7 +155,7 @@
         width={imgDimension * 2}
         height={imgDimension * 2}
         x={center}
-        y={yScale(currentYIndex + 3) - 60}
+        y={yScale(currentYIndex + 2) - 20}
         xlink:href={"baby.png"}
       />
     </svg>

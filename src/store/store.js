@@ -14,6 +14,7 @@ export const selectedPersonData = writable(dataTemp);
 export const selectedPerson = writable();
 export const currentScenario = writable();
 export const started = writable(false);
+export const modalOpen = writable(false);
 
 
 

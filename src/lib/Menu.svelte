@@ -1,4 +1,11 @@
 <script>
+  import {
+    yourBirthYear,
+    selectedPerson,
+    selecterPersonBirthYear,
+    currentScenario,
+  } from "../store/store";
+  import { formatScenarioText } from "./utils";
 </script>
 
 <div id="menu">
@@ -8,17 +15,23 @@
   <div id="menuInner">
     <p>
       <span class="numberSmall">1</span><b>Your birth year:</b>
-      <span id="birthyearMenu"></span>
+      <span id="birthyearMenu">{$yourBirthYear ? $yourBirthYear : ""}</span>
     </p>
     <hr />
     <p>
       <span class="numberSmall">2</span><b>Famous person:</b><br />
-      <span id="celebrityMenu"></span>
+      <span id="celebrityMenu"
+        >{$selectedPerson
+          ? `${$selectedPerson}, born in ${$selecterPersonBirthYear}`
+          : ""}</span
+      >
     </p>
     <hr />
     <p>
       <span class="numberSmall">3</span><b>Scenario:</b>
-      <span id="scenarioMenu"></span>
+      <span id="scenarioMenu"
+        >{$currentScenario ? formatScenarioText($currentScenario) : ""}</span
+      >
     </p>
   </div>
 </div>
@@ -27,7 +40,7 @@
   #menu {
     opacity: 0.85;
     width: 260px;
-    min-height: 50px;
+    height: auto;
     position: absolute;
     top: 0px;
     right: 0px;
