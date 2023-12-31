@@ -1,59 +1,58 @@
 <script>
   import * as d3 from "d3";
+  import textures from "textures";
+  import { onMount } from "svelte";
   import {
+    selectedPerson,
     currentScenario,
     yourData,
     selectedPersonData,
     yourBirthYear,
     selecterPersonBirthYear,
+    yourBirthYearTemp,
+    selecterPersonBirthYearTemp,
     started,
   } from "../store/store";
+  import { tempDomain, tempColorScale } from "../lib/utils";
 
   const margin = {
-    top: 60,
+    top: 30,
     right: 0,
-    bottom: 78,
+    bottom: 110,
     left: 0,
   };
   let width = 200;
   const height = 8000 - margin.top - margin.bottom;
   $: center = width / 2;
 
+  const imgDimension = 40;
+  const ageRectWidth = 80;
+  const tempTextOffsetX = 145;
+  const yearTextOffsetX = 10;
+  const yearTextOffsetY = 45;
+
   const yScale = d3
     .scaleLinear()
     .domain([1, 100])
     .range([margin.top, height - margin.bottom]);
 
-  const tempColorScale = d3
+  const indices = Array.from({ length: 10 }, (_, i) => i);
+
+  const mapTempToTexture = d3
     .scaleThreshold()
-    .domain([0, 0.4, 0.8, 1.2, 1.6, 2, 2.4, 2.8, 3.2, 3.6, 4, 4.4, 4.8])
+    .domain(tempDomain)
+    .range(indices);
+
+  const scenarioMap = d3
+    .scaleOrdinal()
+    .domain(["ssp119", "ssp126", "ssp245", "ssp370", "ssp585"])
     .range([
-      "#213468",
-      "#2171b5",
-      "#6baed6",
-      "#deebf7",
-      "#fff5f0",
-      "#fee0d2",
-      "#fcbba1",
-      "#fc9272",
-      "#fb6a4a",
-      "#ef3b2c",
-      "#cb181d",
-      "#a50f15",
-      "#67000d",
+      "1.5°C Objective",
+      "Sustainability",
+      "Middle of the Road",
+      "Regional Rivalry",
+      "Fossil Fuel-Driven",
     ]);
-
-  const numbers = Array.from({ length: 100 }, (_, index) => index + 1);
-  const imgDimension = 40;
-  const ageRectWidth = 80;
-  const tempTextOffsetX = 80;
-  const yearTextOffsetX = 10;
-  const yearTextOffsetY = 35;
-
-  const yOffsetScale = d3
-    .scaleLinear()
-    .domain([0, height])
-    .range([0, screen.height]);
 
   const handleScroll = () => {
     if (!svg) return;
@@ -63,8 +62,44 @@
 
   let svg;
   let imageOffset = 0;
+  $: currentYIndex = Math.floor(yScale.invert(imageOffset));
 
-  $: currentYIndex = Math.floor(yScale.invert(imageOffset)); //+ yOffsetScale(imageOffset)
+  const textureArray = tempDomain.map((d) => {
+    return textures
+      .circles()
+      .size(20)
+      .radius(1)
+      .fill("black")
+      .background(tempColorScale(d));
+  });
+
+  const texture = textures
+    .circles()
+    .size(20)
+    .radius(1)
+    .fill("white")
+    .background("#bdbdbd");
+
+  onMount(() => {
+    textureArray.forEach((d) => d3.select(svg).call(d));
+    d3.select(svg).call(texture);
+  });
+
+  $: getColor = (d) => {
+    if (d.historic === "no") {
+      return tempColorScale(d[$currentScenario]);
+      // return textureArray[mapTempToTexture(d[$currentScenario])].url();
+    } else if (d.historic === "NA") {
+      return "#bdbdbd";
+      // return texture.url();
+    } else {
+      return tempColorScale(d[$currentScenario]);
+    }
+  };
+
+  $: getTemp = (d) => {
+    return d === "-1.00" ? "No data" : `${d > 0 ? "+" : ""}${d}°C`;
+  };
 </script>
 
 <svelte:window on:scroll={handleScroll} />
@@ -83,26 +118,22 @@
             class="bgRect1"
             id={`bgRect1_${i + 1}`}
             width={width / 2 - margin.left}
-            height={yScale(1) - yScale(0)}
+            height={yScale(1) - yScale(0) - 0.8}
             x={0}
             y={yScale(d.Year - $yourBirthYear) + (yScale(1) - yScale(0))}
-            stroke="black"
-            stroke-width={d.Year - $yourBirthYear === currentYIndex ? 2 : 0}
-            fill={d.historic === "NA"
-              ? "#bdbdbd"
-              : tempColorScale(d[$currentScenario])}
+            stroke={d.Year - $yourBirthYear === currentYIndex
+              ? "black"
+              : getColor(d)}
+            stroke-width={d.Year - $yourBirthYear === currentYIndex ? 2 : 1}
+            fill={getColor(d)}
           >
           </rect>
           <text
             x={yearTextOffsetX}
             class="year1"
-            y={yScale(d.Year - $yourBirthYear) + (yScale(1) - yScale(0)) + 40}
-            >{+$yourBirthYear + i}</text
-          >
-          <text
-            x={center - tempTextOffsetX}
-            y={yScale(d.Year - $yourBirthYear) + (yScale(1) - yScale(0)) + 40}
-            >{d[$currentScenario].toFixed(2)}</text
+            y={yScale(d.Year - $yourBirthYear) +
+              (yScale(1) - yScale(0)) +
+              yearTextOffsetY}>{+$yourBirthYear + i}</text
           >
         {/each}
       </g>
@@ -112,17 +143,17 @@
             class="bgRect2"
             id={`bgRect2_${i + 1}`}
             width={width / 2 - margin.left}
-            height={yScale(1) - yScale(0)}
+            height={yScale(1) - yScale(0) - 0.85}
             x={0}
             y={yScale(d.Year - $selecterPersonBirthYear) +
               (yScale(1) - yScale(0))}
-            stroke="black"
+            stroke={d.Year - $selecterPersonBirthYear === currentYIndex
+              ? "black"
+              : getColor(d)}
             stroke-width={d.Year - $selecterPersonBirthYear === currentYIndex
               ? 2
-              : 0}
-            fill={d.historic === "NA"
-              ? "#bdbdbd"
-              : tempColorScale(d[$currentScenario])}
+              : 1}
+            fill={getColor(d)}
           >
           </rect>
           <text
@@ -131,33 +162,148 @@
             x={width / 2 - yearTextOffsetX}
             y={yScale(d.Year - $selecterPersonBirthYear) +
               (yScale(1) - yScale(0)) +
-              40}>{+$selecterPersonBirthYear + i}</text
-          >
-
-          <text
-            x={0}
-            y={yScale(d.Year - $selecterPersonBirthYear) +
-              (yScale(1) - yScale(0)) +
-              40}>{d[$currentScenario].toFixed(2)}</text
+              yearTextOffsetY}>{+$selecterPersonBirthYear + i}</text
           >
         {/each}</g
       >
-      <image
-        class="you"
-        width={imgDimension * 2}
-        height={imgDimension * 2}
-        x={center - imgDimension * 2}
-        y={yScale(currentYIndex + 2) - 20}
-        xlink:href={"baby.png"}
-      />
-      <image
-        class="celebrity"
-        width={imgDimension * 2}
-        height={imgDimension * 2}
-        x={center}
-        y={yScale(currentYIndex + 2) - 20}
-        xlink:href={"baby.png"}
-      />
+      {#if currentYIndex <= 99}
+        <rect
+          class="personBg1"
+          x={center - (yScale(1) - yScale(0) - 0.8)}
+          y={yScale(currentYIndex + 2) - 48}
+          height={yScale(1) - yScale(0) - 0.8}
+          width={yScale(1) - yScale(0) - 0.8}
+          rx="5"
+          ry="5"
+          fill={tempColorScale($yourBirthYearTemp)}
+          stroke="#000"
+          stroke-width="2"
+        />
+        <rect
+          class="personBg2"
+          x={center}
+          y={yScale(currentYIndex + 2) - 48}
+          height={yScale(1) - yScale(0) - 0.8}
+          width={yScale(1) - yScale(0) - 0.8}
+          rx="5"
+          ry="5"
+          fill={tempColorScale($selecterPersonBirthYearTemp)}
+          stroke="#000"
+          stroke-width="2"
+        />
+        <image
+          class="you"
+          width={imgDimension * 2}
+          height={imgDimension * 2}
+          x={center - imgDimension * 2}
+          y={yScale(currentYIndex + 2) - 50}
+          xlink:href={"baby.png"}
+        />
+        <image
+          class="celebrity"
+          width={imgDimension * 2}
+          height={imgDimension * 2}
+          x={center}
+          y={yScale(currentYIndex + 2) - 50}
+          xlink:href={"baby.png"}
+        />
+        <text
+          class="temperature1"
+          x={center - tempTextOffsetX}
+          y={yScale(currentYIndex + 2)}
+          font-size={20}
+          font-weight={300}
+          text-anchor={"start"}
+          fill={$yourData[currentYIndex][$currentScenario] >= 3.6
+            ? "white"
+            : "black"}
+          >{getTemp($yourData[currentYIndex][$currentScenario].toFixed(2))}
+        </text>
+
+        <text
+          class="temperature2"
+          x={center + tempTextOffsetX}
+          y={yScale(currentYIndex + 2)}
+          font-size={20}
+          font-weight={300}
+          text-anchor={"end"}
+          fill={$selectedPersonData[currentYIndex][$currentScenario] >= 3.6
+            ? "white"
+            : "black"}
+          >{getTemp(
+            $selectedPersonData[currentYIndex][$currentScenario].toFixed(2)
+          )}</text
+        >
+
+        <rect
+          class="ageRect"
+          x={center - ageRectWidth / 2}
+          y={yScale(currentYIndex + 2) + 30}
+          width={ageRectWidth}
+          height={30}
+          rx={5}
+          ry={5}
+          fill={"white"}
+          opacity={0.5}
+        ></rect>
+        <text
+          class="ageText"
+          x={center}
+          y={yScale(currentYIndex + 2) + 50}
+          font-size={20}
+          font-weight={300}
+          text-anchor={"middle"}
+          fill={"black"}>{"Age: " + (currentYIndex + 1)}</text
+        >
+        <text
+          class="ageText"
+          x={center}
+          y={yScale(currentYIndex + 2) + 80}
+          font-size={16}
+          font-weight={700}
+          text-anchor={"middle"}
+          fill={"black"}
+          opacity={+($yourBirthYear + currentYIndex) === 2023 ? 1 : 0}
+          ><tspan x={center} y={yScale(currentYIndex + 2) + 80} dy="0em">
+            {"2023 has been confirmed to be the"}
+          </tspan>
+          <tspan x={center} y={yScale(currentYIndex + 2) + 80} dy="1.1em">
+            {"warmest on record, with global"}
+          </tspan>
+          <tspan x={center} y={yScale(currentYIndex + 2) + 80} dy="2.2em">
+            {"temperatures rising around 1.4°C above"}
+          </tspan>
+          <tspan x={center} y={yScale(currentYIndex + 2) + 80} dy="3.3em">
+            {"pre-industrial levels according to WMO."}
+          </tspan>
+          <tspan x={center} y={yScale(currentYIndex + 2) + 80} dy="4.4em">
+            {"After 2023, yearly temperature anomalies are"}
+          </tspan>
+          <tspan x={center} y={yScale(currentYIndex + 2) + 80} dy="5.5em">
+            {`projected under the ${scenarioMap($currentScenario)} scenario.`}
+          </tspan>
+        </text>
+      {/if}
+      <text
+        class="title1"
+        x={center / 2}
+        y={50}
+        font-size={20}
+        font-weight={300}
+        text-anchor={"middle"}
+      >
+        Your climate stripe
+      </text>
+      <text
+        class="title2"
+        x={center + center / 2}
+        y={50}
+        font-size={20}
+        font-weight={300}
+        text-anchor={"middle"}
+      >
+        {`${$selectedPerson}'s climate stripe`}
+      </text>
     </svg>
   {/if}
 </div>

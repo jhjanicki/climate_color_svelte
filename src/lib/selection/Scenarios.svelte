@@ -1,13 +1,29 @@
 <script>
   import { scenarioData } from "../../assets/data/scenarioData";
-  import { currentScenario } from "../../store/store";
+  import { data } from "../../assets/data/temperatureData";
+
+  import {
+    selecterPersonBirthYear,
+    currentScenario,
+    selecterPersonBirthYearTemp,
+  } from "../../store/store";
 
   let selectedElementIndex = null;
 
-  function update(event, id, i) {
+  const update = (event, id, i) => {
     selectedElementIndex = i;
     $currentScenario = id;
-  }
+
+    if ($selecterPersonBirthYear <= 2023) {
+      $selecterPersonBirthYearTemp = data
+        .filter((d) => d.Year == $selecterPersonBirthYear)[0]
+        .historical.toFixed(2);
+    } else {
+      $selecterPersonBirthYearTemp = data
+        .filter((d) => d.Year == $selecterPersonBirthYear)[0]
+        [$currentScenario].toFixed(2);
+    }
+  };
 </script>
 
 <div id="scenariosContainer">
@@ -30,8 +46,8 @@
   .scenarioWrapper {
     text-align: center;
     display: inline-block;
-    height: 180px;
-    width: 180px;
+    height: 185px;
+    width: 185px;
     border-radius: 10px;
     margin: 4px 2px;
   }

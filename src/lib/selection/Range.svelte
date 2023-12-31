@@ -228,7 +228,7 @@
   .range {
     position: relative;
     flex: 1;
-    width: 80%;
+    width: 200px;
     margin-left: auto;
     margin-right: auto;
   }

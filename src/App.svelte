@@ -1,15 +1,17 @@
 <script>
+  import html2canvas from "html2canvas";
+  import gsap from "gsap";
+  import ScrollTrigger from "gsap/ScrollTrigger";
+  import { onMount } from "svelte";
   import YearSlider from "./lib/selection/YearSlider.svelte";
   import Characters from "./lib/selection/Celebrity.svelte";
   import Scenarios from "./lib/selection/Scenarios.svelte";
   import Timeline from "./lib/Timeline.svelte";
   import Menu from "./lib/Menu.svelte";
   import Modal from "./lib/Modal.svelte";
+  import Stripe from "./lib/Stripe.svelte";
   import { modalOpen } from "./store/store";
-
-  import gsap from "gsap";
-  import ScrollTrigger from "gsap/ScrollTrigger";
-  import { onMount } from "svelte";
+  import { formatScenarioText } from "./lib/utils";
 
   import {
     yourBirthYear,
@@ -18,8 +20,6 @@
     currentScenario,
     started,
   } from "./store/store";
-
-  import { formatScenarioText } from "./lib/utils";
 
   const start = () => {
     if ($yourBirthYear && $selecterPersonBirthYear && $currentScenario) {
@@ -30,13 +30,24 @@
     }
   };
 
+  const captureScreenshot = () => {
+    const divToCapture = document.getElementById("chart2");
+    html2canvas(divToCapture).then(function (canvas) {
+      const dataURL = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = dataURL;
+      link.download = "screenshot.png";
+      link.click();
+    });
+  };
+
   onMount(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     ScrollTrigger.create({
       trigger: "#selectionWrapper",
       start: "top top",
-      end: `bottom ${35}px`,
+      end: `bottom ${126}px`,
       pin: "#menu",
       markers: false,
     });
@@ -136,10 +147,12 @@
     <span id="ssp"></span>
     scenario after year 2023.
   </p>
-  <button id="download" class="button">Download</button>
+  <button id="download" class="button" on:click={captureScreenshot}
+    >Download</button
+  >
 </div>
 
-<div id="chart2"></div>
+<Stripe />
 
 <div class="conclusion {$started ? '' : 'none'}">
   <p>
@@ -205,6 +218,17 @@
     margin-top: 30px;
   }
 
+  @media (max-width: 700px) {
+    .headerText h1 {
+      font-size: 60px;
+      line-height: 70px;
+    }
+
+    .headerText h3 {
+      font-size: 18px;
+    }
+  }
+
   .intro {
     position: relative;
   }
@@ -258,6 +282,13 @@
 
   #celebritySelection {
     flex: 3;
+  }
+
+  @media (max-width: 900px) {
+    #birthYearSelection,
+    #celebritySelection {
+      flex-basis: 100%;
+    }
   }
 
   .instruction {

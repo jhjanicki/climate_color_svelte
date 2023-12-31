@@ -9,27 +9,9 @@
     yourData,
     yourBirthYearTemp,
   } from "../../store/store";
+  import { tempColorScale } from "../../lib/utils.js";
 
-  let tempColorScale = d3
-    .scaleThreshold()
-    .domain([0, 0.4, 0.8, 1.2, 1.6, 2, 2.4, 2.8, 3.2, 3.6, 4, 4.4, 4.8])
-    .range([
-      "#213468",
-      "#2171b5",
-      "#6baed6",
-      "#deebf7",
-      "#fff5f0",
-      "#fee0d2",
-      "#fcbba1",
-      "#fc9272",
-      "#fb6a4a",
-      "#ef3b2c",
-      "#cb181d",
-      "#a50f15",
-      "#67000d",
-    ]);
-
-  function updateSlider(event) {
+  const updateSlider = (event) => {
     $yourBirthYear = event.detail.value + 1923;
     $yourDeathYear = $yourBirthYear + 99;
     $yourAge = 2023 - $yourBirthYear;
@@ -38,7 +20,7 @@
     );
     $yourBirthYearTemp = data.filter((d) => d.Year == $yourBirthYear)[0]
       .historical;
-  }
+  };
 
   let src = "baby.png";
 
@@ -86,7 +68,6 @@
     max-height: 400px;
   }
 
-  #birthYearContainer #slider,
   #birthYearContainer img {
     margin: 10px 0px;
   }
@@ -96,12 +77,11 @@
   }
 
   #birthYearInstruction {
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
     text-align: left;
-    margin: auto 20px;
-  }
-
-  #sliderWrapper {
-    padding: 0px 10px;
+    padding: 10px;
   }
 
   #birthYearText {
