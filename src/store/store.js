@@ -8,6 +8,7 @@ export const yourDeathYear = writable();
 export const yourAge = writable();
 export const yourData = writable(dataTemp);
 export const yourBirthYearTemp = writable();
+export const yourDeathYearTemp = writable();
 export const selecterPersonBirthYearTemp = writable();
 export const selecterPersonBirthYear = writable();
 export const selecterPersonDeathYear = writable();

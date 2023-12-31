@@ -13,7 +13,7 @@
     selecterPersonBirthYearTemp,
     started,
   } from "../store/store";
-  import { tempDomain, tempColorScale } from "../lib/utils";
+  import { tempDomain, tempColorScale, scenarioMap } from "../lib/utils";
 
   const margin = {
     top: 30,
@@ -21,6 +21,7 @@
     bottom: 110,
     left: 0,
   };
+
   let width = 200;
   const height = 8000 - margin.top - margin.bottom;
   $: center = width / 2;
@@ -42,17 +43,6 @@
     .scaleThreshold()
     .domain(tempDomain)
     .range(indices);
-
-  const scenarioMap = d3
-    .scaleOrdinal()
-    .domain(["ssp119", "ssp126", "ssp245", "ssp370", "ssp585"])
-    .range([
-      "1.5°C Objective",
-      "Sustainability",
-      "Middle of the Road",
-      "Regional Rivalry",
-      "Fossil Fuel-Driven",
-    ]);
 
   const handleScroll = () => {
     if (!svg) return;

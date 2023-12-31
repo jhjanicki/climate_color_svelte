@@ -3,6 +3,8 @@
   import gsap from "gsap";
   import ScrollTrigger from "gsap/ScrollTrigger";
   import { onMount } from "svelte";
+  import Header from "./lib/Header.svelte";
+  import Intro from "./lib/Intro.svelte";
   import YearSlider from "./lib/selection/YearSlider.svelte";
   import Characters from "./lib/selection/Celebrity.svelte";
   import Scenarios from "./lib/selection/Scenarios.svelte";
@@ -10,11 +12,15 @@
   import Menu from "./lib/Menu.svelte";
   import Modal from "./lib/Modal.svelte";
   import Stripe from "./lib/Stripe.svelte";
+  import Credit from "./lib/Credit.svelte";
   import { modalOpen } from "./store/store";
-  import { formatScenarioText } from "./lib/utils";
+  import { formatScenarioText, scenarioMap } from "./lib/utils";
 
   import {
     yourBirthYear,
+    yourBirthYearTemp,
+    yourDeathYear,
+    yourDeathYearTemp,
     selectedPerson,
     selecterPersonBirthYear,
     currentScenario,
@@ -55,34 +61,10 @@
 </script>
 
 <Modal />
-<div class="header">
-  <div class="headerText">
-    <h1>A lifetime of change</h1>
-    <h3>Leaving the future generation hope for a better planet</h3>
-    <p>By Julia Janicki, Daisy Chung. Additional work by Jacki Whisenant</p>
-  </div>
-</div>
+<Header />
 
 <div id="selectionWrapper">
-  <div class="intro">
-    <p class="textBlock">
-      Just over the last few years, wildfires, heatwaves, extreme weather events
-      have become visibly more frequent, with ever increasing record-breaking
-      temperatures. These are symptoms of change that has been happening in the
-      background for some time now. How does our current world compared to that
-      when we were born? How has our planet changed throuout the course of our
-      lives, short on the scale of a planet but long given the pace of global
-      warming? Finally let's think about how our collective decisions can shape
-      a future for the youth and humans who are not yet born.
-      <br /><br />
-      Each of the stripes below represent the annual temperature change relative
-      to pre-industrial levels, meaning the long-term average of 1850-1900. Until
-      2023 (up to October only) we are seeing historical temperature anomalies calculated
-      by the WMO, while after 2023 the colors show projected temperatures based on
-      the five Shared Socioeconomic Pathways according to IPCC.
-    </p>
-    <img id="legend" src="./stripe.svg" />
-  </div>
+  <Intro />
   <Menu />
 
   <div class="container">
@@ -139,117 +121,36 @@
 
 <Timeline />
 
-<div class="conclusion {$started ? '' : 'none'}">
-  <p>
-    Download your climate colors, which ranges from <span id="tempLow"></span>
-    in <span id="yearLow"></span> to
-    <span id="tempHigh"></span> in <span id="yearHigh"></span>, under the
-    <span id="ssp"></span>
-    scenario after year 2023.
-  </p>
-  <button id="download" class="button" on:click={captureScreenshot}
-    >Download</button
-  >
-</div>
+{#if $started}
+  <div class="conclusion {$started ? '' : 'none'}">
+    <p>
+      Download your climate colors, which ranges from <span id="tempLow"
+        >{$yourBirthYearTemp}</span
+      >
+      in <span id="yearLow">{$yourBirthYear}</span> to
+      <span id="tempHigh"
+        >{$yourDeathYearTemp === "-1.00"
+          ? "unsure (no data after 2100)"
+          : $yourDeathYearTemp}</span
+      >
+      in
+      <span id="yearHigh">{$yourDeathYear}</span>, under the
+      <span id="ssp">{scenarioMap($currentScenario)}</span>
+      scenario after 2023.
+    </p>
+    <button id="download" class="button" on:click={captureScreenshot}
+      >Download</button
+    >
+  </div>
+{/if}
 
 <Stripe />
 
 <div class="conclusion {$started ? '' : 'none'}">
-  <p>
-    <b>Data:</b><br />
-    Annual temperature anomaly relative to pre-industrial levels (1850-1900), until
-    2023 (up to October only) the data is from World Meteorological Organization,
-    which is the mean of five datasets: HadCRUT5, NOAA, GlobalTemp, GISTEMP, ERA5
-    1, and JRA55. The data of the projected temperature anomalies based on the five
-    SSP scenarios after 2023 are from the IPCC Sixth Assessment report. Ideally the
-    historical and projected data would be from the same sources, but IPCC historical
-    data is not as updated as the WMO data. The original climate stripes idea was
-    developed by Ed Hawkins, this is one of the many adaptations.
-  </p>
-  <br /><br />
-  <p>
-    <b>Credit:</b><br />
-    Data / Development / Narrative: Julia Janicki
-    <br />
-    Design / icons: Daisy Chung
-    <br />
-    Additional icon help: Jacki Whisenant
-  </p>
+  <Credit />
 </div>
 
 <style>
-  .header {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url("./bg.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-  }
-
-  .headerText {
-    text-align: center;
-    color: white;
-    padding: 100px;
-    background-color: rgba(0, 0, 0, 0.25);
-    width: 100%;
-  }
-
-  .headerText h1 {
-    font-size: 80px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .headerText h3 {
-    font-size: 30px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .headerText p {
-    margin-top: 30px;
-  }
-
-  @media (max-width: 700px) {
-    .headerText h1 {
-      font-size: 60px;
-      line-height: 70px;
-    }
-
-    .headerText h3 {
-      font-size: 18px;
-    }
-  }
-
-  .intro {
-    position: relative;
-  }
-
-  .textBlock {
-    max-width: 700px;
-    margin: auto;
-    padding: 40px 20px;
-    font-size: 18px;
-    line-height: 25px;
-    text-align: center;
-  }
-
-  #legend {
-    margin-bottom: 30px;
-    max-width: 550px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-  }
-
   #selectionWrapper {
     position: relative;
   }

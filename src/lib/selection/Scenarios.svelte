@@ -6,6 +6,8 @@
     selecterPersonBirthYear,
     currentScenario,
     selecterPersonBirthYearTemp,
+    yourDeathYearTemp,
+    yourDeathYear,
   } from "../../store/store";
 
   let selectedElementIndex = null;
@@ -23,6 +25,10 @@
         .filter((d) => d.Year == $selecterPersonBirthYear)[0]
         [$currentScenario].toFixed(2);
     }
+
+    $yourDeathYearTemp = data
+      .filter((d) => d.Year == $yourDeathYear)[0]
+      [$currentScenario].toFixed(2);
   };
 </script>
 

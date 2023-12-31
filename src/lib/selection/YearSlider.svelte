@@ -8,6 +8,8 @@
     yourAge,
     yourData,
     yourBirthYearTemp,
+    yourDeathYearTemp,
+    currentScenario,
   } from "../../store/store";
   import { tempColorScale } from "../../lib/utils.js";
 
@@ -20,6 +22,11 @@
     );
     $yourBirthYearTemp = data.filter((d) => d.Year == $yourBirthYear)[0]
       .historical;
+    $yourBirthYearTemp = +$yourBirthYearTemp.toFixed(2);
+
+    $yourDeathYearTemp = data.filter((d) => d.Year == $yourDeathYear)[0][
+      $currentScenario
+    ];
   };
 
   let src = "baby.png";
