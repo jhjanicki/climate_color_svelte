@@ -28,9 +28,9 @@
         .filter((d) => d.Year == $selecterPersonBirthYear)[0]
         .historical.toFixed(2);
     } else {
-      $selecterPersonBirthYearTemp = data
-        .filter((d) => d.Year == $selecterPersonBirthYear)[0]
-        [$currentScenario].toFixed(2);
+      $selecterPersonBirthYearTemp = data.filter(
+        (d) => d.Year == $selecterPersonBirthYear
+      )[0][$currentScenario];
     }
   };
 </script>
