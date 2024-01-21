@@ -9,6 +9,7 @@
     selectedPerson,
     currentScenario,
   } from "../../store/store";
+  import { tempColorScale } from "../utils";
 
   let selectedElementIndex = null;
 
@@ -39,7 +40,7 @@
   {#each celebrityData as d, i}
     <div
       class="celebrityWrapper {selectedElementIndex === i ? 'selected' : ''}"
-      style="background-color: {d.color}"
+      style="background-color: {tempColorScale(d.temp)}"
       on:click={(event) => update(event, i)}
     >
       <img class="icon" id={`icon${d.year}`} src={`./${d.imgName}`} />
@@ -52,6 +53,7 @@
 <style>
   .selected {
     font-weight: 700;
+    box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.4);
   }
   #celebrityContainer {
     text-align: left;
@@ -60,12 +62,13 @@
   }
 
   .celebrityWrapper {
+    max-width: 750px;
     text-align: center;
     display: inline-block;
-    height: 185px;
-    width: 185px;
+    height: 190px;
+    width: 190px;
     border-radius: 10px;
-    margin: 4px 2px;
+    margin: 2px;
   }
   .celebrityWrapper:hover {
     cursor: pointer;
@@ -74,8 +77,14 @@
     font-weight: 700;
   }
   .icon {
-    width: auto;
-    height: auto;
+    width: 120px;
+    height: 120px;
     display: inline-block;
+  }
+
+  @media (max-width: 900px) {
+    #celebrityContainer {
+      text-align: center;
+    }
   }
 </style>

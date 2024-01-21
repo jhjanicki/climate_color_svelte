@@ -12,13 +12,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("./bg.png");
+    background-image: url("bg.png");
     background-repeat: no-repeat;
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-size: 100% 150%;
   }
 
   .headerText {

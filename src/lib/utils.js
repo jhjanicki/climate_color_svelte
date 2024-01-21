@@ -16,19 +16,19 @@ export const tempColorScale = d3
 .scaleThreshold()
 .domain(tempDomain)
 .range([
-  "#213468",
-  "#2171b5",
-  "#6baed6",
-  "#deebf7",
-  "#fff5f0",
-  "#fee0d2",
-  "#fcbba1",
-  "#fc9272",
-  "#fb6a4a",
-  "#ef3b2c",
-  "#cb181d",
-  "#a50f15",
-  "#67000d",
+  "#4292c6",
+  "#39b5b5",
+  "#6bc8b1",
+  "#eaeccc",
+  "#fedd93",
+  "#fec700",
+  "#ff9e00",
+  "#ff7f1f",
+  "#e85338",
+  "#c7245a",
+  "#b00a8c",
+  "#790096",
+  "#4f0097",
 ]);
 
 export const scenarioMap = d3

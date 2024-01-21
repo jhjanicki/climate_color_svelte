@@ -4,7 +4,7 @@
     have become visibly more frequent, with ever increasing record-breaking
     temperatures. These are symptoms of change that has been happening in the
     background for some time now. How does our current world compared to that
-    when we were born? How has our planet changed throuout the course of our
+    when we were born? How has our planet changed throughout the course of our
     lives, short on the scale of a planet but long given the pace of global
     warming? Finally let's think about how our collective decisions can shape a
     future for the youth and humans who are not yet born.

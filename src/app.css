@@ -21,3 +21,27 @@ p {
 .show {
   display: block;
 }
+
+.numberYou {
+  background-color: #4292c6;
+}
+
+.colorYou {
+  color: #4292c6;
+}
+
+.numberCharacter {
+  background-color: #C7245A;
+}
+
+.colorCharacter {
+  color: #C7245A;
+}
+
+.numberScenario {
+  background-color:#790096;
+}
+
+.colorScenario {
+  color: #790096;
+}

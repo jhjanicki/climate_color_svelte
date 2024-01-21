@@ -13,7 +13,9 @@
   } from "../../store/store";
   import { tempColorScale } from "../../lib/utils.js";
 
+  let slided = false;
   const updateSlider = (event) => {
+    slided = true;
     $yourBirthYear = event.detail.value + 1923;
     $yourDeathYear = $yourBirthYear + 99;
     $yourAge = 2023 - $yourBirthYear;
@@ -53,9 +55,9 @@
 
 <div
   id="birthYearContainer"
-  style="background-color: {tempColorScale(
-    $yourBirthYearTemp
-  )}; border: {$yourBirthYearTemp ? 'none' : '0.5px solid black'}"
+  style="background-color: {slided
+    ? tempColorScale($yourBirthYearTemp)
+    : '#39b5b5'}; }"
 >
   <div id="imgContainer">
     <img id="you" class="icon" {src} />
@@ -64,14 +66,14 @@
   <p id="birthYearText">Your birth year: {$yourBirthYear || ""}</p>
   <p id="birthYearInstruction">
     Background color represents the temperature anomaly of your birth year. Year
-    from 1923 to 2023.
+    from 1924 to 2023.
   </p>
 </div>
 
 <style>
   #birthYearContainer {
     border-radius: 10px;
-    height: 100%;
+    height: calc(100% - 90px);
     max-height: 400px;
   }
 
@@ -84,7 +86,7 @@
   }
 
   #birthYearInstruction {
-    max-width: 200px;
+    max-width: 300px;
     margin-left: auto;
     margin-right: auto;
     text-align: left;
@@ -94,5 +96,11 @@
   #birthYearText {
     text-align: center;
     margin: 10px;
+  }
+
+  @media (max-width: 900px) {
+    #birthYearContainer {
+      height: 100%;
+    }
   }
 </style>

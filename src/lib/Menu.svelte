@@ -9,37 +9,28 @@
 </script>
 
 <div id="menu">
-  <div id="menuTitleWrapper">
-    <p id="menuTitle" class="menuTitleItem">Selection summary</p>
-  </div>
-  <div id="menuInner">
-    <p>
-      <span class="numberSmall">1</span><b>Your birth year:</b>
-      <span id="birthyearMenu">{$yourBirthYear ? $yourBirthYear : ""}</span>
-    </p>
-    <hr />
-    <p>
-      <span class="numberSmall">2</span><b>Famous person:</b><br />
-      <span id="celebrityMenu"
-        >{$selectedPerson
-          ? `${$selectedPerson}, born in ${$selecterPersonBirthYear}`
-          : ""}</span
-      >
-    </p>
-    <hr />
-    <p>
-      <span class="numberSmall">3</span><b>Scenario:</b>
-      <span id="scenarioMenu"
-        >{$currentScenario ? formatScenarioText($currentScenario) : ""}</span
-      >
-    </p>
-  </div>
+  <span class="numberSmall numberYou">1</span><b>Your birth year:</b>
+  <span id="birthyearMenu" class="menuItem"
+    >{$yourBirthYear ? $yourBirthYear : ""}</span
+  >
+
+  <span class="numberSmall numberCharacter">2</span><b>Famous person:</b>
+  <span id="celebrityMenu" class="menuItem"
+    >{$selectedPerson
+      ? `${$selectedPerson}, born in ${$selecterPersonBirthYear}`
+      : ""}</span
+  >
+
+  <span class="numberSmall numberScenario">3</span><b>Scenario:</b>
+  <span id="scenarioMenu" class="menuItem"
+    >{$currentScenario ? formatScenarioText($currentScenario) : ""}</span
+  >
 </div>
 
 <style>
   #menu {
-    opacity: 0.85;
-    width: 260px;
+    opacity: 0;
+    width: 100%;
     height: auto;
     position: absolute;
     top: 0px;
@@ -48,42 +39,12 @@
     box-shadow: 1px 1px 5px -3px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     /* transition: all 1s ease; */
-    background: linear-gradient(
-      to bottom,
-      rgba(103, 0, 13, 0.5),
-      rgba(103, 0, 13, 0.25) 54px,
-      rgba(255, 255, 255, 0.8) 54px,
-      rgba(255, 255, 255, 0.8) 100%
-    );
-    z-index: 1000;
+    background: white;
+    z-index: 1;
   }
 
-  #menuInner {
-    padding: 20px;
-    transition: 1s all ease;
-  }
-
-  #menuInner p {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  #menuTitleWrapper {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  #menuTitle {
-    font-weight: 700;
-    text-align: center;
-    padding-top: 13px;
-    margin-left: 40px;
-  }
-
-  .menuTitleItem {
-    display: inline-block;
-    vertical-align: middle;
-    color: #67000d;
+  .menuItem {
+    margin-right: 20px;
   }
 
   .numberSmall {
@@ -92,15 +53,14 @@
     width: 30px;
     height: 30px;
     text-align: center;
-    background-color: #67000d;
     color: white;
     margin-right: 10px;
     padding-top: 4px;
   }
 
-  @media (max-width: 700px) {
+  /* @media (max-width: 700px) {
     #menu {
       display: none;
     }
-  }
+  } */
 </style>

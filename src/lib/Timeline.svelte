@@ -1,6 +1,5 @@
 <script>
   import * as d3 from "d3";
-  import textures from "textures";
   import { onMount } from "svelte";
   import {
     selectedPerson,
@@ -13,7 +12,7 @@
     selecterPersonBirthYearTemp,
     started,
   } from "../store/store";
-  import { tempDomain, tempColorScale, scenarioMap } from "../lib/utils";
+  import { tempColorScale, scenarioMap } from "../lib/utils";
 
   import { gsap } from "gsap";
   import TextPlugin from "gsap/TextPlugin";
@@ -21,7 +20,7 @@
   const margin = {
     top: 40,
     right: 0,
-    bottom: 110,
+    bottom: 150,
     left: 0,
   };
 
@@ -44,11 +43,6 @@
 
   const indices = Array.from({ length: 10 }, (_, i) => i);
 
-  const mapTempToTexture = d3
-    .scaleThreshold()
-    .domain(tempDomain)
-    .range(indices);
-
   const handleScroll = () => {
     if (!svg) return;
     const { top = 0 } = svg.getBoundingClientRect() || {};
@@ -65,42 +59,21 @@
       ? $selectedPersonData[currentYIndex][$currentScenario]
       : "";
 
-  const textureArray = tempDomain.map((d) => {
-    return textures
-      .circles()
-      .size(20)
-      .radius(1)
-      .fill("black")
-      .background(tempColorScale(d));
-  });
-
-  const texture = textures
-    .circles()
-    .size(20)
-    .radius(1)
-    .fill("white")
-    .background("#bdbdbd");
-
   onMount(() => {
     gsap.registerPlugin(TextPlugin);
-    textureArray.forEach((d) => d3.select(svg).call(d));
-    d3.select(svg).call(texture);
   });
 
   $: getColor = (d) => {
     if (d.historic === "no") {
       return tempColorScale(d[$currentScenario]);
-      // return textureArray[mapTempToTexture(d[$currentScenario])].url();
     } else if (d.historic === "NA") {
       return "#bdbdbd";
-      // return texture.url();
     } else {
       return tempColorScale(d[$currentScenario]);
     }
   };
 
   $: getTemp = (d, addSigns) => {
-    console.log(d);
     return addSigns
       ? d == "-1.00"
         ? "No data"
@@ -111,6 +84,91 @@
   };
 
   let clickable = true;
+  let tl2 = gsap.timeline();
+
+  const mouseoverEl = () => {
+    if (clickable) {
+      moveElementHover(tl2, ".personBg1", -10);
+      moveElementHover(tl2, ".personBg2", 10);
+      moveElementHover(tl2, ".you", -10);
+      moveElementHover(tl2, ".celebrity", 10);
+    }
+  };
+
+  const moveElementHover = (tl, element, xPos) => {
+    tl.to(
+      element,
+      0.4,
+      {
+        x: xPos,
+      },
+      0
+    );
+  };
+
+  const mouseLeaveEl = () => {
+    if (clickable) {
+      moveElementHover(tl2, ".personBg1", 0);
+      moveElementHover(tl2, ".personBg2", 0);
+      moveElementHover(tl2, ".you", 0);
+      moveElementHover(tl2, ".celebrity", 0);
+    }
+  };
+
+  const getText = (text) => {
+    if (text === "text1") {
+      if (+$yourBirthYear + +currentYIndex > 2100) {
+        return "Oops, there is no data available after year 2100";
+      } else {
+        if (width >= 1300) {
+          return `The temperature ${
+            +$yourBirthYear + +currentYIndex <= 2023 ? "was" : "will be"
+          } ${getTemp(currentYourTemp - $yourBirthYearTemp, false)} ${
+            currentYourTemp - $yourBirthYearTemp >= 0 ? "higher" : "lower"
+          } compared to when you were born`;
+        } else {
+          return `${getTemp(currentYourTemp - $yourBirthYearTemp, false)} ${
+            currentYourTemp - $yourBirthYearTemp >= 0 ? "higher" : "lower"
+          } vs your birth year`;
+        }
+      }
+    } else {
+      if (+$yourBirthYear + +currentYIndex > 2100) {
+        return "Oops, there is no data available after year 2100";
+      } else {
+        if (width >= 1300) {
+          return `... and ${
+            +$selecterPersonBirthYear + +currentYIndex <= 2023 ? "" : "will be "
+          }${getTemp(
+            currentPersonTemp - $selecterPersonBirthYearTemp,
+            false
+          )} ${
+            currentPersonTemp - $selecterPersonBirthYearTemp >= 0
+              ? "higher"
+              : "lower"
+          } compared to when ${
+            $selectedPerson !== "8 billionth baby" &&
+            $selectedPerson !== "Future baby"
+              ? $selectedPerson.split(" ")[0]
+              : $selectedPerson
+          } ${$selectedPerson === "Future baby" ? "will be" : "was"} born`;
+        } else {
+          return `${getTemp(
+            currentPersonTemp - $selecterPersonBirthYearTemp,
+            false
+          )} ${
+            currentPersonTemp - $selecterPersonBirthYearTemp >= 0
+              ? "higher"
+              : "lower"
+          } vs ${
+            $selectedPerson !== "2022 baby" && $selectedPerson !== "Future baby"
+              ? $selectedPerson.split(" ")[0]
+              : $selectedPerson
+          }'s birth year`;
+        }
+      }
+    }
+  };
 
   const rotate = () => {
     if (clickable) {
@@ -128,36 +186,8 @@
       showElement(tl, "#tempText1");
       showElement(tl, "#tempText2");
 
-      animateText(
-        tl,
-        "#tempText1",
-        +$yourBirthYear + +currentYIndex > 2100
-          ? "Oops, there is no data available after year 2100"
-          : `The temperature ${
-              $yourBirthYear + currentYIndex <= 2023 ? "was" : "will be"
-            } ${getTemp(currentYourTemp - $yourBirthYearTemp, false)} ${
-              currentYourTemp - $yourBirthYearTemp >= 0 ? "higher" : "lower"
-            } compared to when you were born`
-      );
-      animateText(
-        tl,
-        "#tempText2",
-        +$selecterPersonBirthYear + +currentYIndex > 2100
-          ? "Oops, there is no data available after year 2100"
-          : `... and ${getTemp(
-              currentPersonTemp - $selecterPersonBirthYearTemp,
-              false
-            )} ${
-              currentPersonTemp - $selecterPersonBirthYearTemp >= 0
-                ? "higher"
-                : "lower"
-            } compared to when ${
-              $selectedPerson !== "8 billionth baby" &&
-              $selectedPerson !== "Future baby"
-                ? $selectedPerson.split(" ")[0]
-                : $selectedPerson
-            } ${$selectedPerson === "Future baby" ? "will be" : "was"} born`
-      );
+      animateText(tl, "#tempText1", getText("text1"));
+      animateText(tl, "#tempText2", getText("text2"));
 
       showElement(tl, ".circle", 4.5, 0.7);
       showElement(tl, ".circleX", 4.5);
@@ -296,9 +326,7 @@
             height={yScale(1) - yScale(0) - 0.8}
             x={0}
             y={yScale(d.Year - $yourBirthYear) + (yScale(1) - yScale(0))}
-            stroke={d.Year - $yourBirthYear === currentYIndex
-              ? "black"
-              : getColor(d)}
+            stroke={getColor(d)}
             stroke-width={d.Year - $yourBirthYear === currentYIndex ? 1.5 : 1}
             fill={getColor(d)}
           >
@@ -322,9 +350,7 @@
             x={0}
             y={yScale(d.Year - $selecterPersonBirthYear) +
               (yScale(1) - yScale(0))}
-            stroke={d.Year - $selecterPersonBirthYear === currentYIndex
-              ? "black"
-              : getColor(d)}
+            stroke={getColor(d)}
             stroke-width={d.Year - $selecterPersonBirthYear === currentYIndex
               ? 1.5
               : 1}
@@ -342,7 +368,12 @@
         {/each}</g
       >
       {#if currentYIndex <= 99}
-        <g class="currentRect" on:click={(event) => rotate()}>
+        <g
+          class="currentRect"
+          on:click={() => rotate()}
+          on:mouseenter={() => mouseoverEl()}
+          on:mouseleave={() => mouseLeaveEl()}
+        >
           <rect
             {width}
             height={yScale(1) - yScale(0) - 0.85}
@@ -415,9 +446,9 @@
         >
         <text
           id="tempText1"
-          x={80}
+          x={width >= 800 ? 80 : 50}
           y={yScale(currentYIndex + 2) + 6}
-          font-size={20}
+          font-size={width >= 800 ? 20 : 16}
           font-weight={300}
           text-anchor={"start"}
           fill={currentYourTemp >= 3.6 ? "white" : "black"}
@@ -425,9 +456,9 @@
 
         <text
           id="tempText2"
-          x={center + 60}
+          x={width >= 800 ? center + 60 : center + 20}
           y={yScale(currentYIndex + 2) + 6}
-          font-size={20}
+          font-size={width >= 800 ? 20 : 16}
           font-weight={300}
           text-anchor={"start"}
           fill={currentPersonTemp >= 3.6 ? "white" : "black"}
@@ -435,10 +466,14 @@
 
         <rect
           class="ageRect"
-          x={center - ageRectWidth / 2}
+          x={+($yourBirthYear + currentYIndex) === 2023
+            ? center - 175
+            : center - ageRectWidth / 2}
           y={yScale(currentYIndex + 2) + 40}
-          width={ageRectWidth}
-          height={30}
+          width={+($yourBirthYear + currentYIndex) === 2023
+            ? 350
+            : ageRectWidth}
+          height={+($yourBirthYear + currentYIndex) === 2023 ? 160 : 30}
           rx={5}
           ry={5}
           fill={"white"}
@@ -462,22 +497,22 @@
           text-anchor={"middle"}
           fill={"black"}
           opacity={+($yourBirthYear + currentYIndex) === 2023 ? 1 : 0}
-          ><tspan x={center} y={yScale(currentYIndex + 2) + 80} dy="0em">
+          ><tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="0em">
             {"2023 has been confirmed to be the"}
           </tspan>
-          <tspan x={center} y={yScale(currentYIndex + 2) + 80} dy="1.1em">
+          <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="1.1em">
             {"warmest on record, with global"}
           </tspan>
-          <tspan x={center} y={yScale(currentYIndex + 2) + 80} dy="2.2em">
+          <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="2.2em">
             {"temperatures rising around 1.4°C above"}
           </tspan>
-          <tspan x={center} y={yScale(currentYIndex + 2) + 80} dy="3.3em">
+          <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="3.3em">
             {"pre-industrial levels according to WMO."}
           </tspan>
-          <tspan x={center} y={yScale(currentYIndex + 2) + 80} dy="4.4em">
+          <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="4.4em">
             {"After 2023, yearly temperature anomalies are"}
           </tspan>
-          <tspan x={center} y={yScale(currentYIndex + 2) + 80} dy="5.5em">
+          <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="5.5em">
             {`projected under the ${scenarioMap($currentScenario)} scenario.`}
           </tspan>
         </text>

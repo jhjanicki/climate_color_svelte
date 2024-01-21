@@ -59,23 +59,23 @@
   }
 
   .scenarioWrapper:nth-child(1) {
-    background-color: #fff5f0;
+    background-color: #fedd93;
   }
 
   .scenarioWrapper:nth-child(2) {
-    background-color: #fee0d2;
+    background-color: #fec700;
   }
 
   .scenarioWrapper:nth-child(3) {
-    background-color: #fc9272;
+    background-color: #ff7f1f;
   }
 
   .scenarioWrapper:nth-child(4) {
-    background-color: #cb181d;
+    background-color: #b00a8c;
   }
 
   .scenarioWrapper:nth-child(5) {
-    background-color: #67000d;
+    background-color: #4f0097;
     color: white;
   }
 
@@ -84,5 +84,11 @@
     box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.4);
     transition: all 0.25s ease;
     font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    #scenariosContainer {
+      text-align: center;
+    }
   }
 </style>

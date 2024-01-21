@@ -27,6 +27,8 @@
     started,
   } from "./store/store";
 
+  let tl;
+
   const start = () => {
     if ($yourBirthYear && $selecterPersonBirthYear && $currentScenario) {
       $started = true;
@@ -50,53 +52,70 @@
   onMount(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    ScrollTrigger.create({
-      trigger: "#selectionWrapper",
-      start: "top top",
-      end: `bottom ${126}px`,
-      pin: "#menu",
-      markers: false,
+    tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#selectionWrapper",
+        start: "top top",
+        endTrigger: "#chart",
+        end: `bottom top-=7900px`,
+        pin: "#menu",
+        markers: false,
+        pinSpacing: false,
+        // toggleActions: "play none none reverse",
+      },
     });
+
+    tl.to("#menu", { alpha: 0.85 });
   });
 </script>
 
 <Modal />
 <Header />
+<Intro />
 
 <div id="selectionWrapper">
-  <Intro />
   <Menu />
 
   <div class="container">
     <div class="row">
       <div class="column" id="birthYearSelection">
         <p class="instruction">
-          <span class="number">1</span> Select your birth year
+          <span class="number numberYou">1</span>
+          <span class="colorYou">Select your birth year</span>
         </p>
         <YearSlider />
       </div>
       <div class="column" id="celebritySelection">
         <p class="instruction">
-          <span class="number">2</span> Select a one of the following characters
+          <span class="number numberCharacter">2</span>
+          <span class="colorCharacter"
+            >Select a one of the following characters</span
+          >
         </p>
         <Characters />
+        <p>
+          Color of the tiles represent their climate strip colors of their birth
+          year.
+        </p>
       </div>
     </div>
     <div id="scenarioSelection">
       <div id="sspText">
         <p class="instruction">
-          <span class="number">3</span> Select projected climate scenario
+          <span class="number numberScenario">3</span>
+          <span class="colorScenario">Select projected climate scenario</span>
         </p>
         <p>
           Shared Socioeconomic Pathways (SSPs) are climate change scenarios
           projecting societal, demographic and economic changes up to 2100.
-          According to IPCC, in the SSP labels, the first number refers to the
+
+          <!-- According to IPCC, in the SSP labels, the first number refers to the
           assumed shared socio-economic pathway (1: Sustainability, 2: Middle of
           the Road, 3: Regional Rivalry, 4: Inequality, 5: Fossil-fueled
           Development), and the second refers to the approximate global
-          effective radiative forcing (ERF) in 2100. Pick one of these scenarios
-          to see the proejcted annual temperature anomalies after 2023 up until
-          2100.
+          effective radiative forcing (ERF) in 2100.  -->
+          Pick one of these scenarios, ordered from best to worst case, to see the
+          proejcted annual temperature anomalies after 2023 up until 2100.
         </p>
       </div>
       <Scenarios />
@@ -166,7 +185,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    column-gap: 60px;
+    column-gap: 120px;
   }
 
   .column {
@@ -179,10 +198,17 @@
   #birthYearSelection {
     text-align: center;
     flex: 1;
+    margin-top: 100px;
   }
 
   #celebritySelection {
     flex: 3;
+    max-width: 800px;
+    margin-top: 100px;
+  }
+
+  #scenarioSelection {
+    margin-top: 100px;
   }
 
   @media (max-width: 900px) {
@@ -194,7 +220,6 @@
 
   .instruction {
     font-weight: 700;
-    color: #67000d;
     text-align: left;
     margin: 20px 0px;
   }
@@ -205,7 +230,6 @@
     width: 30px;
     height: 30px;
     text-align: center;
-    background-color: #67000d;
     color: white;
     margin-right: 10px;
     padding-top: 4px;
@@ -303,5 +327,11 @@
   #arrowPerson,
   #arrowScenario {
     font-weight: 700;
+  }
+
+  @media (max-width: 950px) {
+    .row {
+      column-gap: 90px;
+    }
   }
 </style>
