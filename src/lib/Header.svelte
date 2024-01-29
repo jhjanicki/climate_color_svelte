@@ -12,7 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("bg.png");
+    background-image: url("bg.gif");
     background-repeat: no-repeat;
     background-position: center;
     -webkit-background-size: cover;

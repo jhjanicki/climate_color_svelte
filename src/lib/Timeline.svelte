@@ -27,6 +27,9 @@
   let width = 200;
   const height = 8000 - margin.top - margin.bottom;
   $: center = width / 2;
+  $: selectedPersonImg = $selectedPerson
+    ? $selectedPerson.replaceAll(" ", "_") + ".png"
+    : "";
 
   const imgDimension = 40;
   const ageRectWidth = 80;
@@ -421,7 +424,7 @@
             height={imgDimension * 2}
             x={center}
             y={yScale(currentYIndex + 2) - imgYOffset}
-            xlink:href={"baby.png"}
+            xlink:href={selectedPersonImg}
           />
         </g>
         <text
@@ -431,7 +434,7 @@
           font-size={20}
           font-weight={300}
           text-anchor={"start"}
-          fill={currentYourTemp >= 3.6 ? "white" : "black"}
+          fill={currentYourTemp >= 2.8 ? "white" : "black"}
           >{getTemp(currentYourTemp, true)}
         </text>
         <text
@@ -441,7 +444,7 @@
           font-size={20}
           font-weight={300}
           text-anchor={"end"}
-          fill={currentPersonTemp >= 3.6 ? "white" : "black"}
+          fill={currentPersonTemp >= 2.8 ? "white" : "black"}
           >{getTemp(currentPersonTemp, true)}</text
         >
         <text
@@ -451,7 +454,7 @@
           font-size={width >= 800 ? 20 : 16}
           font-weight={300}
           text-anchor={"start"}
-          fill={currentYourTemp >= 3.6 ? "white" : "black"}
+          fill={currentYourTemp >= 2.8 ? "white" : "black"}
         ></text>
 
         <text
@@ -461,7 +464,7 @@
           font-size={width >= 800 ? 20 : 16}
           font-weight={300}
           text-anchor={"start"}
-          fill={currentPersonTemp >= 3.6 ? "white" : "black"}
+          fill={currentPersonTemp >= 2.8 ? "white" : "black"}
         ></text>
 
         <rect

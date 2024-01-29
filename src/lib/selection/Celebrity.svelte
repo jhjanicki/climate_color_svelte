@@ -55,6 +55,10 @@
     font-weight: 700;
     box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.4);
   }
+
+  .personYear {
+    font-weight: 700;
+  }
   #celebrityContainer {
     text-align: left;
     margin-left: auto;
@@ -77,7 +81,8 @@
     font-weight: 700;
   }
   .icon {
-    width: 120px;
+    margin-top: 20px;
+    margin-bottom: -10px;
     height: 120px;
     display: inline-block;
   }

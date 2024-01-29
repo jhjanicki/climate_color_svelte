@@ -295,16 +295,17 @@
     pointer-events: none;
     position: absolute;
     top: -33px;
-    color: var(--tooltip-text, white);
+    color: black;
+    font-weight: 700;
     width: 38px;
     padding: 4px 0;
     border-radius: 4px;
     text-align: center;
-    background-color: var(--tooltip-bgcolor, #fc9272);
-    background: var(--tooltip-bg, linear-gradient(45deg, #fc9272, #ef3b2c));
+    /* background-color: var(--tooltip-bgcolor, #fc9272); */
+    /* background: var(--tooltip-bg, linear-gradient(45deg, #fc9272, #ef3b2c)); */
   }
 
-  .range__tooltip::after {
+  /* .range__tooltip::after {
     content: "";
     display: block;
     position: absolute;
@@ -316,5 +317,5 @@
     clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
     transform: rotate(-45deg);
     border-radius: 0 0 0 3px;
-  }
+  } */
 </style>

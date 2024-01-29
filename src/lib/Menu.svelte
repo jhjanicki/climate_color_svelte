@@ -9,22 +9,24 @@
 </script>
 
 <div id="menu">
-  <span class="numberSmall numberYou">1</span><b>Your birth year:</b>
-  <span id="birthyearMenu" class="menuItem"
-    >{$yourBirthYear ? $yourBirthYear : ""}</span
-  >
+  <div id="menuInner">
+    <span class="numberSmall numberYou">1</span><b>Your birth year:</b>
+    <span id="birthyearMenu" class="menuItem"
+      >{$yourBirthYear ? $yourBirthYear : ""}</span
+    >
 
-  <span class="numberSmall numberCharacter">2</span><b>Famous person:</b>
-  <span id="celebrityMenu" class="menuItem"
-    >{$selectedPerson
-      ? `${$selectedPerson}, born in ${$selecterPersonBirthYear}`
-      : ""}</span
-  >
+    <span class="numberSmall numberCharacter">2</span><b>Famous person:</b>
+    <span id="celebrityMenu" class="menuItem"
+      >{$selectedPerson
+        ? `${$selectedPerson}, born in ${$selecterPersonBirthYear}`
+        : ""}</span
+    >
 
-  <span class="numberSmall numberScenario">3</span><b>Scenario:</b>
-  <span id="scenarioMenu" class="menuItem"
-    >{$currentScenario ? formatScenarioText($currentScenario) : ""}</span
-  >
+    <span class="numberSmall numberScenario">3</span><b>Scenario:</b>
+    <span id="scenarioMenu" class="menuItem"
+      >{$currentScenario ? formatScenarioText($currentScenario) : ""}</span
+    >
+  </div>
 </div>
 
 <style>
@@ -43,6 +45,12 @@
     z-index: 1;
   }
 
+  #menuInner {
+    width: 75vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .menuItem {
     margin-right: 20px;
   }
@@ -58,9 +66,9 @@
     padding-top: 4px;
   }
 
-  /* @media (max-width: 700px) {
-    #menu {
-      display: none;
+  @media (max-width: 700px) {
+    #menuInner {
+      width: 100%;
     }
-  } */
+  }
 </style>

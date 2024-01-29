@@ -63,7 +63,7 @@
     <img id="you" class="icon" {src} />
   </div>
   <Range on:change={updateSlider} id="slider" />
-  <p id="birthYearText">Your birth year: {$yourBirthYear || ""}</p>
+  <!-- <p id="birthYearText">Your birth year: {$yourBirthYear || ""}</p> -->
   <p id="birthYearInstruction">
     Background color represents the temperature anomaly of your birth year. Year
     from 1924 to 2023.
