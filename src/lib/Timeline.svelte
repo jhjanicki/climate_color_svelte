@@ -88,6 +88,7 @@
 
   let clickable = true;
   let tl2 = gsap.timeline();
+  let tlRing = gsap.timeline();
 
   const mouseoverEl = () => {
     if (clickable) {
@@ -95,6 +96,15 @@
       moveElementHover(tl2, ".personBg2", 10);
       moveElementHover(tl2, ".you", -10);
       moveElementHover(tl2, ".celebrity", 10);
+
+      tlRing.to(".ring", 1, {
+        opacity: 0.75,
+        stagger: {
+          each: 0.5,
+          repeat: -1,
+        },
+      });
+      tlRing.play();
     }
   };
 
@@ -111,6 +121,10 @@
 
   const mouseLeaveEl = () => {
     if (clickable) {
+      tlRing.pause();
+      gsap.to(".ring", 1, {
+        opacity: 0,
+      });
       moveElementHover(tl2, ".personBg1", 0);
       moveElementHover(tl2, ".personBg2", 0);
       moveElementHover(tl2, ".you", 0);
@@ -120,6 +134,7 @@
 
   const getText = (text) => {
     if (text === "text1") {
+      console.log(+$yourBirthYear + +currentYIndex);
       if (+$yourBirthYear + +currentYIndex > 2100) {
         return "Oops, there is no data available after year 2100";
       } else {
@@ -136,7 +151,7 @@
         }
       }
     } else {
-      if (+$yourBirthYear + +currentYIndex > 2100) {
+      if (+$selecterPersonBirthYear + +currentYIndex > 2100) {
         return "Oops, there is no data available after year 2100";
       } else {
         if (width >= 1300) {
@@ -177,6 +192,10 @@
     if (clickable) {
       let tl = gsap.timeline();
       disableScroll();
+      tlRing.pause();
+      gsap.to(".ring", 1, {
+        opacity: 0,
+      });
 
       hideElements(tl, [".ageRect", ".ageText"]);
 
@@ -194,6 +213,10 @@
 
       showElement(tl, ".circle", 4.5, 0.7);
       showElement(tl, ".circleX", 4.5);
+
+      gsap.to(".ageText2023", 0.3, {
+        y: 40,
+      });
 
       clickable = false;
     }
@@ -218,6 +241,9 @@
     moveElement(tl, ".you", 0.2, 0, 0, 0);
     moveElement(tl, ".personBg2", 0.2, 0, 0, 0);
     moveElement(tl, ".celebrity", 0.2, 0, 0, 0);
+    gsap.to(".ageText2023", 0.3, {
+      y: 0,
+    });
   };
 
   function disableScroll() {
@@ -426,7 +452,16 @@
             y={yScale(currentYIndex + 2) - imgYOffset}
             xlink:href={selectedPersonImg}
           />
+          <circle
+            class="ring"
+            cx={center}
+            cy={yScale(currentYIndex + 2)}
+            r="15"
+            fill="white"
+            opacity="0"
+          ></circle>
         </g>
+
         <text
           class="temperature1"
           x={center - tempTextOffsetX}
@@ -500,7 +535,8 @@
           text-anchor={"middle"}
           fill={"black"}
           opacity={+($yourBirthYear + currentYIndex) === 2023 ? 1 : 0}
-          ><tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="0em">
+        >
+          <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="0em">
             {"2023 has been confirmed to be the"}
           </tspan>
           <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="1.1em">

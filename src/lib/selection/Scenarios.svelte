@@ -21,14 +21,18 @@
         .filter((d) => d.Year == $selecterPersonBirthYear)[0]
         .historical.toFixed(2);
     } else {
-      $selecterPersonBirthYearTemp = data
-        .filter((d) => d.Year == $selecterPersonBirthYear)[0]
-        [$currentScenario].toFixed(2);
+      $selecterPersonBirthYearTemp = $selecterPersonBirthYear
+        ? data
+            .filter((d) => d.Year == $selecterPersonBirthYear)[0]
+            [$currentScenario].toFixed(2)
+        : "";
     }
 
-    $yourDeathYearTemp = data
-      .filter((d) => d.Year == $yourDeathYear)[0]
-      [$currentScenario].toFixed(2);
+    $yourDeathYearTemp = $yourDeathYear
+      ? data
+          .filter((d) => d.Year == $yourDeathYear)[0]
+          [$currentScenario].toFixed(2)
+      : "";
   };
 </script>
 
