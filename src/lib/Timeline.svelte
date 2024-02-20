@@ -44,7 +44,7 @@
     .domain([1, 100])
     .range([margin.top, height - margin.bottom]);
 
-  const indices = Array.from({ length: 10 }, (_, i) => i);
+  // const indices = Array.from({ length: 10 }, (_, i) => i);
 
   const handleScroll = () => {
     if (!svg) return;
@@ -96,6 +96,8 @@
       moveElementHover(tl2, ".personBg2", 10);
       moveElementHover(tl2, ".you", -10);
       moveElementHover(tl2, ".celebrity", 10);
+      moveElementHover(tl2, ".temperature1", -10);
+      moveElementHover(tl2, ".temperature2", 10);
 
       tlRing.to(".ring", 1, {
         opacity: 0.75,
@@ -129,14 +131,19 @@
       moveElementHover(tl2, ".personBg2", 0);
       moveElementHover(tl2, ".you", 0);
       moveElementHover(tl2, ".celebrity", 0);
+      moveElementHover(tl2, ".temperature1", 0);
+      moveElementHover(tl2, ".temperature2", 0);
     }
   };
 
   const getText = (text) => {
     if (text === "text1") {
-      console.log(+$yourBirthYear + +currentYIndex);
       if (+$yourBirthYear + +currentYIndex > 2100) {
-        return "Oops, there is no data available after year 2100";
+        if (width >= 1300) {
+          return "Oops, there is no data available after year 2100";
+        } else {
+          return "Oops, no data after 2100";
+        }
       } else {
         if (width >= 1300) {
           return `The temperature ${
@@ -147,12 +154,16 @@
         } else {
           return `${getTemp(currentYourTemp - $yourBirthYearTemp, false)} ${
             currentYourTemp - $yourBirthYearTemp >= 0 ? "higher" : "lower"
-          } vs your birth year`;
+          } than in ${$yourBirthYear}`;
         }
       }
     } else {
       if (+$selecterPersonBirthYear + +currentYIndex > 2100) {
-        return "Oops, there is no data available after year 2100";
+        if (width >= 1300) {
+          return "Oops, there is no data available after year 2100";
+        } else {
+          return "Oops, no data after 2100";
+        }
       } else {
         if (width >= 1300) {
           return `... and ${
@@ -178,11 +189,7 @@
             currentPersonTemp - $selecterPersonBirthYearTemp >= 0
               ? "higher"
               : "lower"
-          } vs ${
-            $selectedPerson !== "2022 baby" && $selectedPerson !== "Future baby"
-              ? $selectedPerson.split(" ")[0]
-              : $selectedPerson
-          }'s birth year`;
+          } than in ${$selecterPersonBirthYear}`;
         }
       }
     }
@@ -341,6 +348,7 @@
 <div id="chart" bind:clientWidth={width}>
   {#if $yourData && $selectedPersonData && $yourBirthYear && $selecterPersonBirthYear && $currentScenario && $started}
     <svg
+      id="svg"
       {width}
       height={height + margin.top}
       transform={"translate(0," + margin.top + ")"}
@@ -494,7 +502,7 @@
 
         <text
           id="tempText2"
-          x={width >= 800 ? center + 60 : center + 20}
+          x={width >= 800 ? center + 60 : center + 30}
           y={yScale(currentYIndex + 2) + 6}
           font-size={width >= 800 ? 20 : 16}
           font-weight={300}
@@ -582,7 +590,7 @@
       <text
         class="title1"
         x={center / 2}
-        y={50}
+        y={60}
         font-size={20}
         font-weight={300}
         text-anchor={"middle"}
@@ -592,7 +600,7 @@
       <text
         class="title2"
         x={center + center / 2}
-        y={50}
+        y={60}
         font-size={20}
         font-weight={300}
         text-anchor={"middle"}

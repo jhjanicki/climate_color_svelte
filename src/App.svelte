@@ -6,15 +6,16 @@
   import Header from "./lib/Header.svelte";
   import Intro from "./lib/Intro.svelte";
   import YearSlider from "./lib/selection/YearSlider.svelte";
-  import Characters from "./lib/selection/Celebrity.svelte";
+  import Celebrity from "./lib/selection/Celebrity.svelte";
   import Scenarios from "./lib/selection/Scenarios.svelte";
   import Timeline from "./lib/Timeline.svelte";
   import Menu from "./lib/Menu.svelte";
   import Modal from "./lib/Modal.svelte";
   import Stripe from "./lib/Stripe.svelte";
   import Credit from "./lib/Credit.svelte";
+  import Dropdown from "./lib/Dropdown.svelte";
   import { modalOpen } from "./store/store";
-  import { formatScenarioText, scenarioMap } from "./lib/utils";
+  import { scenarioMap } from "./lib/utils";
 
   import {
     yourBirthYear,
@@ -27,7 +28,7 @@
     started,
   } from "./store/store";
 
-  let tl;
+  let tl, tl2;
 
   const start = () => {
     if ($yourBirthYear && $selecterPersonBirthYear && $currentScenario) {
@@ -65,7 +66,18 @@
       },
     });
 
-    tl.to("#menu", { alpha: 0.85 });
+    tl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#chart",
+        start: "top top+=200px",
+        markers: false,
+        pinSpacing: false,
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    tl2.to(".legend", { alpha: 1 });
+    tl.to("#menu", { alpha: 0.9 });
   });
 </script>
 
@@ -92,10 +104,10 @@
             >Select a one of the following characters</span
           >
         </p>
-        <Characters />
-        <p>
-          Color of the tiles represent their climate strip colors of their birth
-          year.
+        <Celebrity />
+        <p class="note">
+          Color of the tiles represent the temperature anomaly of each
+          individual's birth year.
         </p>
       </div>
     </div>
@@ -116,6 +128,10 @@
           effective radiative forcing (ERF) in 2100.  -->
           Pick one of these scenarios, ordered from best to worst case, to see the
           proejcted annual temperature anomalies after 2023 up until 2100.
+          <span class="note"
+            >Color of the tiles represent the temperature anomaly at 2100 for
+            each scenario.</span
+          >
         </p>
       </div>
       <Scenarios />
@@ -129,9 +145,11 @@
         >Compare your temperatures with <span id="arrowPerson"
           >{$selectedPerson}</span
         >
-        under the
+        from age 1 to 100, under the
         <span id="arrowScenario"
-          >{$currentScenario ? formatScenarioText($currentScenario) : ""}</span
+          >{$currentScenario
+            ? scenarioMap($currentScenario).toLowerCase()
+            : ""}</span
         > scenario</span
       >
     </div>
@@ -143,18 +161,19 @@
 {#if $started}
   <div class="conclusion {$started ? '' : 'none'}">
     <p>
-      Download your climate colors, which ranges from <span id="tempLow"
+      Download and share your climate colors, ranging from <span id="tempLow"
         >{$yourBirthYearTemp}</span
       >
-      in <span id="yearLow">{$yourBirthYear}</span> to
+      °C in <span id="yearLow">{$yourBirthYear}</span> to
       <span id="tempHigh"
         >{$yourDeathYearTemp === "-1.00"
           ? "unsure (no data after 2100)"
           : $yourDeathYearTemp}</span
       >
-      in
+      °C in
       <span id="yearHigh">{$yourDeathYear}</span>, under the
-      <span id="ssp">{scenarioMap($currentScenario)}</span>
+      <Dropdown />
+      <!-- <span id="ssp">{scenarioMap($currentScenario)}</span> -->
       scenario after 2023.
     </p>
     <button id="download" class="button" on:click={captureScreenshot}
@@ -165,7 +184,7 @@
 
 <Stripe />
 
-<div class="conclusion {$started ? '' : 'none'}">
+<div class={$started ? "" : "none"}>
   <Credit />
 </div>
 
@@ -224,6 +243,11 @@
     margin: 20px 0px;
   }
 
+  .note {
+    font-size: 14px;
+    font-style: italic;
+  }
+
   .number {
     display: inline-block;
     border-radius: 50%;
@@ -276,21 +300,21 @@
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
-    background-color: white;
-    color: #67000d;
+    background-color: #fff;
+    color: #4f0097;
     text-transform: uppercase;
     padding: 4px 8px;
     width: 130px;
     text-align: center;
     display: block;
-    border: 1px solid #67000d;
+    border: 1px solid #4f0097;
     border-radius: 20px;
     font-weight: 600;
     font-size: 16px;
   }
 
   .button:hover {
-    background-color: #67000d;
+    background-color: #4f0097;
     color: white;
     transition: all 0.5s ease;
     border: 1px solid white;

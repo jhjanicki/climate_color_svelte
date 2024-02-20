@@ -10,10 +10,7 @@
     yourDeathYear,
   } from "../../store/store";
 
-  let selectedElementIndex = null;
-
   const update = (event, id, i) => {
-    selectedElementIndex = i;
     $currentScenario = id;
 
     if ($selecterPersonBirthYear <= 2023) {
@@ -39,10 +36,10 @@
 <div id="scenariosContainer">
   {#each scenarioData as d, i}
     <div
-      class="scenarioWrapper {selectedElementIndex === i ? 'selected' : ''}"
+      class="scenarioWrapper {$currentScenario === d.id ? 'selected' : ''}"
       on:click={(event) => update(event, d.id, i)}
     >
-      <p>{d.name}</p>
+      <p class="textTop">{d.name}</p>
       <img class="icon" src="./baby.png" />
       <p>{d.description}</p>
     </div>
@@ -56,10 +53,18 @@
   .scenarioWrapper {
     text-align: center;
     display: inline-block;
-    height: 185px;
-    width: 185px;
-    border-radius: 10px;
+    height: 190px;
+    width: 190px;
+    border-radius: 26px;
     margin: 4px 2px;
+  }
+  .icon {
+    height: 120px;
+    display: inline-block;
+  }
+
+  .textTop {
+    padding-top: 10px;
   }
 
   .scenarioWrapper:nth-child(1) {

@@ -5,7 +5,7 @@
     selecterPersonBirthYear,
     currentScenario,
   } from "../store/store";
-  import { formatScenarioText } from "./utils";
+  import { scenarioMap } from "./utils";
 </script>
 
 <div id="menu">
@@ -24,8 +24,15 @@
 
     <span class="numberSmall numberScenario">3</span><b>Scenario:</b>
     <span id="scenarioMenu" class="menuItem"
-      >{$currentScenario ? formatScenarioText($currentScenario) : ""}</span
+      >{$currentScenario ? scenarioMap($currentScenario) : ""}</span
     >
+    <br />
+    <span class="legend">-0.4°C </span><img
+      class="legend"
+      id="legendMini"
+      src="./stripe2.svg"
+    />
+    <span class="legend"> 4.8°C</span>
   </div>
 </div>
 
@@ -58,12 +65,40 @@
   .numberSmall {
     display: inline-block;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     text-align: center;
     color: white;
     margin-right: 10px;
-    padding-top: 4px;
+    padding-top: 2px;
+    vertical-align: middle;
+  }
+
+  .legend {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+    opacity: 0;
+  }
+
+  #legendMini {
+    max-width: 250px;
+  }
+
+  br {
+    display: none;
+  }
+
+  @media (max-width: 1600px) AND (min-width: 1100px) {
+    br {
+      display: block;
+    }
+  }
+
+  @media (max-width: 800px) {
+    br {
+      display: block;
+    }
   }
 
   @media (max-width: 700px) {

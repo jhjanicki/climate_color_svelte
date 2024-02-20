@@ -1,5 +1,4 @@
 <script>
-  import * as d3 from "d3";
   import Range from "./Range.svelte";
   import { data } from "../../assets/data/temperatureData";
   import {
@@ -63,16 +62,15 @@
     <img id="you" class="icon" {src} />
   </div>
   <Range on:change={updateSlider} id="slider" />
-  <!-- <p id="birthYearText">Your birth year: {$yourBirthYear || ""}</p> -->
-  <p id="birthYearInstruction">
-    Background color represents the temperature anomaly of your birth year. Year
-    from 1924 to 2023.
+  <p id="birthYearInstruction" class="note">
+    Background color represents the temperature anomaly of your birth year.
+    <br />Year from 1924 to 2023.
   </p>
 </div>
 
 <style>
   #birthYearContainer {
-    border-radius: 10px;
+    border-radius: 26px;
     height: calc(100% - 90px);
     max-height: 400px;
   }
@@ -86,11 +84,12 @@
   }
 
   #birthYearInstruction {
-    max-width: 300px;
+    max-width: 200px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 40px;
     text-align: left;
-    padding: 10px;
+    padding: 0px 10px;
   }
 
   #birthYearText {
@@ -98,9 +97,17 @@
     margin: 10px;
   }
 
+  .note {
+    font-size: 14px;
+    font-style: italic;
+  }
+
   @media (max-width: 900px) {
     #birthYearContainer {
       height: 100%;
+    }
+    #birthYearInstruction {
+      padding: 10px;
     }
   }
 </style>

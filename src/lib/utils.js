@@ -35,9 +35,9 @@ export const scenarioMap = d3
 .scaleOrdinal()
 .domain(["ssp119", "ssp126", "ssp245", "ssp370", "ssp585"])
 .range([
-  "1.5°C Objective",
-  "Sustainability",
-  "Middle of the Road",
-  "Regional Rivalry",
-  "Fossil Fuel-Driven",
+  "Very low emissions",
+  "Low emissions",
+  "Intermediate emissions",
+  "High emissions",
+  "Very high emissions",
 ]);

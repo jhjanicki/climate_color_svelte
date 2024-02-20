@@ -55,7 +55,6 @@
     font-weight: 700;
     box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.4);
   }
-
   .personYear {
     font-weight: 700;
   }
@@ -71,7 +70,7 @@
     display: inline-block;
     height: 190px;
     width: 190px;
-    border-radius: 10px;
+    border-radius: 26px;
     margin: 2px;
   }
   .celebrityWrapper:hover {
