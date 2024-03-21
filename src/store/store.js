@@ -17,3 +17,8 @@ export const selectedPerson = writable();
 export const currentScenario = writable();
 export const started = writable(false);
 export const modalOpen = writable(false);
+export const yourAgeProfile = writable();
+export const yearProfile = writable();
+export const stripeCliked = writable(false);
+
+

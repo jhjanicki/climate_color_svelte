@@ -6,12 +6,10 @@
   let scenarios = ["ssp119", "ssp126", "ssp245", "ssp370", "ssp585"];
 
   const toggleDropdown = () => {
-    console.log("toggled");
     active = !active;
   };
 
   const closeDropdown = (scenario) => {
-    console.log(scenario);
     $currentScenario = scenario;
     active = false;
   };
@@ -75,7 +73,7 @@
   }
 
   .option:hover {
-    background: #1696d2;
+    background: #4f0097;
     color: #fff;
   }
 

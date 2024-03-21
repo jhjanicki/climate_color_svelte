@@ -12,6 +12,7 @@
   import Menu from "./lib/Menu.svelte";
   import Modal from "./lib/Modal.svelte";
   import Stripe from "./lib/Stripe.svelte";
+  import Profile from "./lib/Profile.svelte";
   import Credit from "./lib/Credit.svelte";
   import Dropdown from "./lib/Dropdown.svelte";
   import { modalOpen } from "./store/store";
@@ -183,6 +184,13 @@
 {/if}
 
 <Stripe />
+
+{#if $started}
+  <div class="conclusion {$started ? '' : 'none'}">
+    <p>Too see a summary, select a year from above:</p>
+  </div>
+  <Profile />
+{/if}
 
 <div class={$started ? "" : "none"}>
   <Credit />

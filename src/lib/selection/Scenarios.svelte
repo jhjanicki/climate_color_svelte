@@ -40,7 +40,7 @@
       on:click={(event) => update(event, d.id, i)}
     >
       <p class="textTop">{d.name}</p>
-      <img class="icon" src="./baby.png" />
+      <img class="icon" src="./scenario{i + 1}.png" />
       <p>{d.description}</p>
     </div>
   {/each}

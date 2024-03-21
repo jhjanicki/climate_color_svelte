@@ -3,16 +3,15 @@
   import {
     currentScenario,
     yourData,
-    selectedPersonData,
     yourBirthYear,
-    selecterPersonBirthYear,
     started,
+    yourAgeProfile,
+    yearProfile,
+    stripeCliked,
   } from "../store/store";
   import { tempColorScale } from "../lib/utils";
-  import { histData } from "../assets/data/historicalData";
 
   let width = 200;
-  $: center = width / 2;
 
   const height = 500;
   const margin = {
@@ -20,7 +19,7 @@
     bottom: 30,
   };
 
-  $: xScale = d3.scaleLinear().domain([1, 100]).range([0, width]);
+  $: xScale = d3.scaleLinear().domain([0, 100]).range([0, width]);
   $: getColor = (d) => {
     if (d.historic === "no") {
       return tempColorScale(d[$currentScenario]);
@@ -33,7 +32,7 @@
     }
   };
 
-  $: xScale2 = d3.scaleLinear().domain([1850, 2100]).range([0, width]);
+  let hoveredData;
 </script>
 
 <div id="chart2" bind:clientWidth={width}>
@@ -44,12 +43,22 @@
           <rect
             class="bgRect3"
             id={`bgRect3_${i + 1}`}
-            width={xScale(2) - xScale(1) + 0.3}
-            {height}
+            width={hoveredData == d
+              ? xScale(2) - xScale(1) - 0.5
+              : xScale(2) - xScale(1) + 0.3}
+            height={height - 2}
             x={xScale(d.Year - $yourBirthYear)}
-            y={0}
-            stroke="none"
+            y={1}
+            stroke={hoveredData == d ? "black" : "none"}
+            stroke-width={hoveredData == d ? 1.2 : 0}
             fill={getColor(d)}
+            on:mouseover={() => (hoveredData = d)}
+            on:mouseout={() => (hoveredData = "")}
+            on:click={() => {
+              $yourAgeProfile = i + 1;
+              $yearProfile = d.Year;
+              $stripeCliked = true;
+            }}
           >
           </rect>
         {/each}
@@ -85,6 +94,5 @@
 <style>
   #chart2 {
     width: 100%;
-    margin-bottom: 100px;
   }
 </style>

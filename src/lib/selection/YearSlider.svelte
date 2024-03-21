@@ -30,24 +30,24 @@
     ];
   };
 
-  let src = "baby.png";
+  let yourImage = "old.png";
 
   $: {
     // Update the src value based on multiple conditions
-    if ($yourAge >= 0 && $yourAge < 4) {
-      src = "baby.png";
+    if ($yourAge >= 0 && $yourAge < 6) {
+      yourImage = "baby.png";
     }
-    if ($yourAge >= 4 && $yourAge < 11) {
-      src = "kid.png";
+    if ($yourAge >= 6 && $yourAge < 13) {
+      yourImage = "kid.png";
     }
-    if ($yourAge >= 11 && $yourAge < 20) {
-      src = "teen.png";
+    if ($yourAge >= 13 && $yourAge < 18) {
+      yourImage = "teen.png";
     }
-    if ($yourAge >= 20 && $yourAge < 60) {
-      src = "adult.png";
+    if ($yourAge >= 18 && $yourAge < 60) {
+      yourImage = "adult.png";
     }
     if ($yourAge >= 60 && $yourAge <= 100) {
-      src = "old.png";
+      yourImage = "old.png";
     }
   }
 </script>
@@ -59,7 +59,7 @@
     : '#39b5b5'}; }"
 >
   <div id="imgContainer">
-    <img id="you" class="icon" {src} />
+    <img id="you" class="icon" src={yourImage} />
   </div>
   <Range on:change={updateSlider} id="slider" />
   <p id="birthYearInstruction" class="note">
@@ -77,6 +77,7 @@
 
   #birthYearContainer img {
     margin: 10px 0px;
+    width: 140px;
   }
 
   #birthYearContainer #imgContainer {

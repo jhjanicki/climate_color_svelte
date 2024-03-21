@@ -23,11 +23,16 @@
       (d) =>
         d.Year >= $selecterPersonBirthYear && d.Year <= $selecterPersonDeathYear
     );
-    // THIS PART NEED TO CHANGE so it reflects the scenario too when it changes, also breaks when the user selects celebrity before scenario
     if ($selecterPersonBirthYear <= 2023) {
-      $selecterPersonBirthYearTemp = data
-        .filter((d) => d.Year == $selecterPersonBirthYear)[0]
-        .historical.toFixed(2);
+      if ($selectedPerson === "Future baby") {
+        $selecterPersonBirthYearTemp = data.filter(
+          (d) => d.Year == $selecterPersonBirthYear
+        )[0][$currentScenario];
+      } else {
+        $selecterPersonBirthYearTemp = data
+          .filter((d) => d.Year == $selecterPersonBirthYear)[0]
+          .historical.toFixed(2);
+      }
     } else {
       $selecterPersonBirthYearTemp = data.filter(
         (d) => d.Year == $selecterPersonBirthYear

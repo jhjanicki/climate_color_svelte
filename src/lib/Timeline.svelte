@@ -12,7 +12,7 @@
     selecterPersonBirthYearTemp,
     started,
   } from "../store/store";
-  import { tempColorScale, scenarioMap } from "../lib/utils";
+  import { tempColorScale, scenarioMap, getTemp } from "../lib/utils";
 
   import { gsap } from "gsap";
   import TextPlugin from "gsap/TextPlugin";
@@ -66,7 +66,7 @@
     gsap.registerPlugin(TextPlugin);
   });
 
-  $: getColor = (d) => {
+  const getColor = (d) => {
     if (d.historic === "no") {
       return tempColorScale(d[$currentScenario]);
     } else if (d.historic === "NA") {
@@ -76,14 +76,23 @@
     }
   };
 
-  $: getTemp = (d, addSigns) => {
-    return addSigns
-      ? d == "-1.00"
-        ? "No data"
-        : `${d > 0 ? "+" : ""}${d.toFixed(2)}°C`
-      : d == "-1.00"
-        ? "No data"
-        : `${Math.abs(d.toFixed(2))}°C`;
+  const updateImage = (age) => {
+    // Update the src value based on multiple conditions
+    if (age >= 0 && age < 6) {
+      return "baby.png";
+    }
+    if (age >= 6 && age < 13) {
+      return "kid.png";
+    }
+    if (age >= 13 && age < 18) {
+      return "teen.png";
+    }
+    if (age >= 18 && age < 60) {
+      return "adult.png";
+    }
+    if (age >= 60 && age <= 100) {
+      return "old.png";
+    }
   };
 
   let clickable = true;
@@ -91,22 +100,24 @@
   let tlRing = gsap.timeline();
 
   const mouseoverEl = () => {
-    if (clickable) {
-      moveElementHover(tl2, ".personBg1", -10);
-      moveElementHover(tl2, ".personBg2", 10);
-      moveElementHover(tl2, ".you", -10);
-      moveElementHover(tl2, ".celebrity", 10);
-      moveElementHover(tl2, ".temperature1", -10);
-      moveElementHover(tl2, ".temperature2", 10);
+    if (width >= 550) {
+      if (clickable) {
+        moveElementHover(tl2, ".personBg1", -10);
+        moveElementHover(tl2, ".personBg2", 10);
+        moveElementHover(tl2, ".you", -10);
+        moveElementHover(tl2, ".celebrity", 10);
+        moveElementHover(tl2, ".temperature1", -10);
+        moveElementHover(tl2, ".temperature2", 10);
 
-      tlRing.to(".ring", 1, {
-        opacity: 0.75,
-        stagger: {
-          each: 0.5,
-          repeat: -1,
-        },
-      });
-      tlRing.play();
+        tlRing.to(".ring", 1, {
+          opacity: 0.75,
+          stagger: {
+            each: 0.5,
+            repeat: -1,
+          },
+        });
+        tlRing.play();
+      }
     }
   };
 
@@ -139,33 +150,35 @@
   const getText = (text) => {
     if (text === "text1") {
       if (+$yourBirthYear + +currentYIndex > 2100) {
-        if (width >= 1300) {
+        if (width >= 1100) {
           return "Oops, there is no data available after year 2100";
         } else {
           return "Oops, no data after 2100";
         }
       } else {
-        if (width >= 1300) {
+        if (width >= 1100) {
           return `The temperature ${
             +$yourBirthYear + +currentYIndex <= 2023 ? "was" : "will be"
           } ${getTemp(currentYourTemp - $yourBirthYearTemp, false)} ${
             currentYourTemp - $yourBirthYearTemp >= 0 ? "higher" : "lower"
           } compared to when you were born`;
-        } else {
+        } else if (width >= 550 && width < 1100) {
           return `${getTemp(currentYourTemp - $yourBirthYearTemp, false)} ${
             currentYourTemp - $yourBirthYearTemp >= 0 ? "higher" : "lower"
           } than in ${$yourBirthYear}`;
+        } else {
+          return "";
         }
       }
     } else {
       if (+$selecterPersonBirthYear + +currentYIndex > 2100) {
-        if (width >= 1300) {
+        if (width >= 1100) {
           return "Oops, there is no data available after year 2100";
         } else {
           return "Oops, no data after 2100";
         }
       } else {
-        if (width >= 1300) {
+        if (width >= 1100) {
           return `... and ${
             +$selecterPersonBirthYear + +currentYIndex <= 2023 ? "" : "will be "
           }${getTemp(
@@ -181,7 +194,7 @@
               ? $selectedPerson.split(" ")[0]
               : $selectedPerson
           } ${$selectedPerson === "Future baby" ? "will be" : "was"} born`;
-        } else {
+        } else if (width >= 550 && width < 1100) {
           return `${getTemp(
             currentPersonTemp - $selecterPersonBirthYearTemp,
             false
@@ -190,42 +203,46 @@
               ? "higher"
               : "lower"
           } than in ${$selecterPersonBirthYear}`;
+        } else {
+          return "";
         }
       }
     }
   };
 
   const rotate = () => {
-    if (clickable) {
-      let tl = gsap.timeline();
-      disableScroll();
-      tlRing.pause();
-      gsap.to(".ring", 1, {
-        opacity: 0,
-      });
+    if (width >= 550) {
+      if (clickable) {
+        let tl = gsap.timeline();
+        disableScroll();
+        tlRing.pause();
+        gsap.to(".ring", 1, {
+          opacity: 0,
+        });
 
-      hideElements(tl, [".ageRect", ".ageText"]);
+        hideElements(tl, [".ageRect", ".ageText"]);
 
-      moveElement(tl, ".personBg1", 0.4, 45, 38, -55);
-      moveElement(tl, ".you", 0.4, 0, 40, -55);
-      moveElement(tl, ".personBg2", 0.4, 45, -38, 55);
-      moveElement(tl, ".celebrity", 0.4, 0, -40, 55);
+        moveElement(tl, ".personBg1", 0.4, 45, 38, -55);
+        moveElement(tl, ".you", 0.4, 0, 40, -55);
+        moveElement(tl, ".personBg2", 0.4, 45, -38, 55);
+        moveElement(tl, ".celebrity", 0.4, 0, -40, 55);
 
-      hideElements(tl, [".temperature1", ".temperature2"]);
-      showElement(tl, "#tempText1");
-      showElement(tl, "#tempText2");
+        hideElements(tl, [".temperature1", ".temperature2"]);
+        showElement(tl, "#tempText1");
+        showElement(tl, "#tempText2");
 
-      animateText(tl, "#tempText1", getText("text1"));
-      animateText(tl, "#tempText2", getText("text2"));
+        animateText(tl, "#tempText1", getText("text1"));
+        animateText(tl, "#tempText2", getText("text2"));
 
-      showElement(tl, ".circle", 4.5, 0.7);
-      showElement(tl, ".circleX", 4.5);
+        showElement(tl, ".circle", 4.5, 0.7);
+        showElement(tl, ".circleX", 4.5);
 
-      gsap.to(".ageText2023", 0.3, {
-        y: 40,
-      });
+        gsap.to(".ageText2023", 0.3, {
+          y: 40,
+        });
 
-      clickable = false;
+        clickable = false;
+      }
     }
   };
 
@@ -406,7 +423,7 @@
       >
       {#if currentYIndex <= 99}
         <g
-          class="currentRect"
+          class={`currentRect ${width >= 550 ? "hoverActive" : ""}`}
           on:click={() => rotate()}
           on:mouseenter={() => mouseoverEl()}
           on:mouseleave={() => mouseLeaveEl()}
@@ -450,7 +467,7 @@
             height={imgDimension * 2}
             x={center - imgDimension * 2}
             y={yScale(currentYIndex + 2) - imgYOffset}
-            xlink:href={"baby.png"}
+            xlink:href={updateImage(currentYIndex)}
           />
           <image
             class="celebrity"
@@ -617,7 +634,7 @@
     margin-bottom: 100px;
   }
   .circleX:hover,
-  .currentRect:hover {
+  .hoverActive:hover {
     cursor: pointer;
   }
 </style>

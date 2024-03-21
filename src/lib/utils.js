@@ -41,3 +41,13 @@ export const scenarioMap = d3
   "High emissions",
   "Very high emissions",
 ]);
+
+export const getTemp = (d, addSigns) => {
+  return addSigns
+    ? d == "-1.00"
+      ? "No data"
+      : `${d > 0 ? "+" : ""}${d.toFixed(2)}°C`
+    : d == "-1.00"
+      ? "No data"
+      : `${Math.abs(d.toFixed(2))}°C`;
+};
