@@ -43,11 +43,30 @@ export const scenarioMap = d3
 ]);
 
 export const getTemp = (d, addSigns) => {
+  d = +d;
   return addSigns
     ? d == "-1.00"
       ? "No data"
-      : `${d > 0 ? "+" : ""}${d.toFixed(2)}°C`
+      : `${d > 0 ? "+" : ""}${+d.toFixed(2)}°C`
     : d == "-1.00"
       ? "No data"
-      : `${Math.abs(d.toFixed(2))}°C`;
+      : `${Math.abs(+d.toFixed(2))}°C`;
 };
+
+export const getImage = (age) =>{
+  if (age >= 0 && age < 6) {
+    return "baby.png";
+  }
+  if (age >= 6 && age < 13) {
+    return "kid.png";
+  }
+  if (age >= 13 && age < 20) {
+    return "teen.png";
+  }
+  if (age >= 20 && age < 55) {
+    return "adult.png";
+  }
+  if (age >= 55 && age <= 100) {
+    return "old.png";
+  }
+}

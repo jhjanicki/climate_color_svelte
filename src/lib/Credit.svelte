@@ -1,15 +1,19 @@
 <div class="row">
   <p class="column">
     <b>Data:</b>
-    Annual temperature anomaly relative to pre-industrial levels (1850-1900), until
-    2023 (up to October only) the data is from World Meteorological Organization,
-    which is the mean of five datasets: HadCRUT5, NOAA, GlobalTemp, GISTEMP, ERA5
-    1, and JRA55. The data of the projected temperature anomalies based on the five
-    SSP scenarios after 2023 are from the IPCC Sixth Assessment report (Most updated
-    scenario data we can find). Ideally the historical and projected data would be
-    from the same sources, but IPCC historical data is not as updated as the WMO
-    data. The original climate stripes idea was developed by Ed Hawkins, this is
-    one of the many adaptations.
+    In this project we are visualizing the annual temperature anomalies relative
+    to the pre-industrial levels (1850-1900), using both historical (until 2023)
+    and projected (after 2023) data. We used historical data from the World Meteorological
+    Organization, which is the mean of six datasets: HadCRUT5, NOAA, GlobalTemp,
+    GISTEMP, ERA5 1, and JRA55. We also referenced the "State of the Global Climate
+    2023" report. The data for the projected temperature anomalies based on the five
+    SSP scenarios after 2023 are from the IPCC Sixth Assessment report, which is
+    the most updated scenario data we can find. Ideally the historical and projected
+    data would be from the same source, but IPCC historical data is not as updated
+    as the WMO data so we decided to combine two sources, if someonoe has access
+    to more updated projected temperatures after 2024 for the SSP scenarios data
+    we'd be happy to use the more updated data. The original climate stripes idea
+    was developed by Ed Hawkins, this is one of the many adaptations.
   </p>
   <br /><br />
   <p class="column">

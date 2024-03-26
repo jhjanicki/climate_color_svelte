@@ -24,7 +24,7 @@
     yourDeathYear,
     yourDeathYearTemp,
     selectedPerson,
-    selecterPersonBirthYear,
+    selectedPersonBirthYear,
     currentScenario,
     started,
   } from "./store/store";
@@ -32,7 +32,7 @@
   let tl, tl2;
 
   const start = () => {
-    if ($yourBirthYear && $selecterPersonBirthYear && $currentScenario) {
+    if ($yourBirthYear && $selectedPersonBirthYear && $currentScenario) {
       $started = true;
     } else {
       $started = false;
@@ -102,7 +102,7 @@
         <p class="instruction">
           <span class="number numberCharacter">2</span>
           <span class="colorCharacter"
-            >Select a one of the following characters</span
+            >Select a one of the following people</span
           >
         </p>
         <Celebrity />
@@ -116,7 +116,7 @@
       <div id="sspText">
         <p class="instruction">
           <span class="number numberScenario">3</span>
-          <span class="colorScenario">Select projected climate scenario</span>
+          <span class="colorScenario">Select a projected climate scenario</span>
         </p>
         <p>
           Shared Socioeconomic Pathways (SSPs) are climate change scenarios
@@ -167,14 +167,13 @@
       >
       °C in <span id="yearLow">{$yourBirthYear}</span> to
       <span id="tempHigh"
-        >{$yourDeathYearTemp === "-1.00"
+        >{$yourDeathYearTemp == "-1.00"
           ? "unsure (no data after 2100)"
-          : $yourDeathYearTemp}</span
+          : $yourDeathYearTemp + "°C"}</span
       >
-      °C in
+      in
       <span id="yearHigh">{$yourDeathYear}</span>, under the
       <Dropdown />
-      <!-- <span id="ssp">{scenarioMap($currentScenario)}</span> -->
       scenario after 2023.
     </p>
     <button id="download" class="button" on:click={captureScreenshot}
@@ -187,7 +186,10 @@
 
 {#if $started}
   <div class="conclusion {$started ? '' : 'none'}">
-    <p>Too see a summary, select a year from above:</p>
+    <p>
+      Too further explore and see the summary for a year, select a year from
+      above:
+    </p>
   </div>
   <Profile />
 {/if}

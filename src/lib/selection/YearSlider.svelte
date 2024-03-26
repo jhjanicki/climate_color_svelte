@@ -10,9 +10,11 @@
     yourDeathYearTemp,
     currentScenario,
   } from "../../store/store";
-  import { tempColorScale } from "../../lib/utils.js";
+  import { tempColorScale, getImage } from "../../lib/utils.js";
 
   let slided = false;
+  let yourImage = "old.png";
+
   const updateSlider = (event) => {
     slided = true;
     $yourBirthYear = event.detail.value + 1923;
@@ -28,28 +30,9 @@
     $yourDeathYearTemp = data.filter((d) => d.Year == $yourDeathYear)[0][
       $currentScenario
     ];
+
+    yourImage = getImage($yourAge);
   };
-
-  let yourImage = "old.png";
-
-  $: {
-    // Update the src value based on multiple conditions
-    if ($yourAge >= 0 && $yourAge < 6) {
-      yourImage = "baby.png";
-    }
-    if ($yourAge >= 6 && $yourAge < 13) {
-      yourImage = "kid.png";
-    }
-    if ($yourAge >= 13 && $yourAge < 18) {
-      yourImage = "teen.png";
-    }
-    if ($yourAge >= 18 && $yourAge < 60) {
-      yourImage = "adult.png";
-    }
-    if ($yourAge >= 60 && $yourAge <= 100) {
-      yourImage = "old.png";
-    }
-  }
 </script>
 
 <div

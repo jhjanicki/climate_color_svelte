@@ -2,7 +2,7 @@
   <div class="headerText">
     <h1>A lifetime of change</h1>
     <h3>Leaving the future generation hope for a better planet</h3>
-    <p>By Julia Janicki, Daisy Chung. Additional work by Jacki Whisenant</p>
+    <p>By Julia Janicki and Daisy Chung</p>
   </div>
 </div>
 

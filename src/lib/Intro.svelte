@@ -11,9 +11,9 @@
     <br /><br />
     Each of the stripes below represent the annual temperature change relative to
     pre-industrial levels, meaning the long-term average of 1850-1900. Until 2023
-    (up to October only) we are seeing historical temperature anomalies calculated
-    by the WMO, while after 2023 the colors show projected temperatures based on
-    the five Shared Socioeconomic Pathways according to IPCC.
+    we are seeing historical temperature anomalies calculated by the WMO, while after
+    2023 the colors show projected temperatures based on the five Shared Socioeconomic
+    Pathways according to IPCC.
   </p>
   <img id="legend" src="./stripe.svg" />
 </div>

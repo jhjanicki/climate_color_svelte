@@ -71,24 +71,6 @@
       </g>
     </svg>
   {/if}
-
-  <!-- <svg {width} height={height + margin.top + margin.bottom}>
-    <g transform={"translate(0," + margin.top + ")"}>
-      {#each histData as d, i (d.Year)}
-        <rect
-          class="bgRect3"
-          id={`bgRect3_${i + 1}`}
-          width={xScale2(2) - xScale2(1) + 0.3}
-          {height}
-          x={xScale2(d.Year)}
-          y={0}
-          stroke="none"
-          fill={getColor(d)}
-        >
-        </rect>
-      {/each}
-    </g>
-  </svg> -->
 </div>
 
 <style>

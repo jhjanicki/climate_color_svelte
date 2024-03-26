@@ -3,9 +3,9 @@
   import { data } from "../../assets/data/temperatureData";
 
   import {
-    selecterPersonBirthYear,
+    selectedPersonBirthYear,
     currentScenario,
-    selecterPersonBirthYearTemp,
+    selectedPersonBirthYearTemp,
     yourDeathYearTemp,
     yourDeathYear,
   } from "../../store/store";
@@ -13,14 +13,14 @@
   const update = (event, id, i) => {
     $currentScenario = id;
 
-    if ($selecterPersonBirthYear <= 2023) {
-      $selecterPersonBirthYearTemp = data
-        .filter((d) => d.Year == $selecterPersonBirthYear)[0]
+    if ($selectedPersonBirthYear <= 2023) {
+      $selectedPersonBirthYearTemp = data
+        .filter((d) => d.Year == $selectedPersonBirthYear)[0]
         .historical.toFixed(2);
     } else {
-      $selecterPersonBirthYearTemp = $selecterPersonBirthYear
+      $selectedPersonBirthYearTemp = $selectedPersonBirthYear
         ? data
-            .filter((d) => d.Year == $selecterPersonBirthYear)[0]
+            .filter((d) => d.Year == $selectedPersonBirthYear)[0]
             [$currentScenario].toFixed(2)
         : "";
     }

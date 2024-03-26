@@ -2,7 +2,7 @@
   import {
     yourBirthYear,
     selectedPerson,
-    selecterPersonBirthYear,
+    selectedPersonBirthYear,
     currentScenario,
   } from "../store/store";
   import { scenarioMap } from "./utils";
@@ -18,7 +18,7 @@
     <span class="numberSmall numberCharacter">2</span><b>Famous person:</b>
     <span id="celebrityMenu" class="menuItem"
       >{$selectedPerson
-        ? `${$selectedPerson}, born in ${$selecterPersonBirthYear}`
+        ? `${$selectedPerson}, born in ${$selectedPersonBirthYear}`
         : ""}</span
     >
 

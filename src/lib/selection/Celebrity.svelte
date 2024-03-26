@@ -2,9 +2,9 @@
   import { celebrityData } from "../../assets/data/celebrityData";
   import { data } from "../../assets/data/temperatureData";
   import {
-    selecterPersonBirthYear,
-    selecterPersonDeathYear,
-    selecterPersonBirthYearTemp,
+    selectedPersonBirthYear,
+    selectedPersonDeathYear,
+    selectedPersonBirthYearTemp,
     selectedPersonData,
     selectedPerson,
     currentScenario,
@@ -15,27 +15,27 @@
 
   const update = (event, i) => {
     selectedElementIndex = i;
-    $selecterPersonBirthYear =
+    $selectedPersonBirthYear =
       event.currentTarget.querySelector(".personYear").textContent;
-    $selecterPersonDeathYear = +$selecterPersonBirthYear + 99;
+    $selectedPersonDeathYear = +$selectedPersonBirthYear + 99;
     $selectedPerson = event.currentTarget.querySelector(".person").textContent;
     $selectedPersonData = data.filter(
       (d) =>
-        d.Year >= $selecterPersonBirthYear && d.Year <= $selecterPersonDeathYear
+        d.Year >= $selectedPersonBirthYear && d.Year <= $selectedPersonDeathYear
     );
-    if ($selecterPersonBirthYear <= 2023) {
+    if ($selectedPersonBirthYear <= 2023) {
       if ($selectedPerson === "Future baby") {
-        $selecterPersonBirthYearTemp = data.filter(
-          (d) => d.Year == $selecterPersonBirthYear
+        $selectedPersonBirthYearTemp = data.filter(
+          (d) => d.Year == $selectedPersonBirthYear
         )[0][$currentScenario];
       } else {
-        $selecterPersonBirthYearTemp = data
-          .filter((d) => d.Year == $selecterPersonBirthYear)[0]
+        $selectedPersonBirthYearTemp = data
+          .filter((d) => d.Year == $selectedPersonBirthYear)[0]
           .historical.toFixed(2);
       }
     } else {
-      $selecterPersonBirthYearTemp = data.filter(
-        (d) => d.Year == $selecterPersonBirthYear
+      $selectedPersonBirthYearTemp = data.filter(
+        (d) => d.Year == $selectedPersonBirthYear
       )[0][$currentScenario];
     }
   };
