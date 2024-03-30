@@ -513,11 +513,11 @@
         <rect
           class="ageRect"
           x={+($yourBirthYear + currentYIndex) === 2023
-            ? center - 175
+            ? center - 200
             : center - ageRectWidth / 2}
           y={yScale(currentYIndex + 2) + 40}
           width={+($yourBirthYear + currentYIndex) === 2023
-            ? 350
+            ? 400
             : ageRectWidth}
           height={+($yourBirthYear + currentYIndex) === 2023 ? 160 : 30}
           rx={5}

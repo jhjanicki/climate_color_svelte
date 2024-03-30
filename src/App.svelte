@@ -15,7 +15,6 @@
   import Profile from "./lib/Profile.svelte";
   import Credit from "./lib/Credit.svelte";
   import Dropdown from "./lib/Dropdown.svelte";
-  import { modalOpen } from "./store/store";
   import { scenarioMap } from "./lib/utils";
 
   import {
@@ -27,6 +26,7 @@
     selectedPersonBirthYear,
     currentScenario,
     started,
+    modalOpen,
   } from "./store/store";
 
   let tl, tl2;
@@ -180,15 +180,15 @@
       >Download</button
     >
   </div>
-{/if}
 
-<Stripe />
+  <Stripe />
 
-{#if $started}
   <div class="conclusion {$started ? '' : 'none'}">
+    <div class="scroll-arrow2">↑</div>
+
     <p>
       Too further explore and see the summary for a year, select a year from
-      above:
+      your stripes above
     </p>
   </div>
   <Profile />
@@ -300,7 +300,6 @@
     max-width: 500px;
     padding: 20px;
     margin: auto;
-    padding: 40px 20px;
     font-size: 18px;
     line-height: 25px;
     text-align: center;
@@ -342,6 +341,19 @@
     text-align: center;
     transform: translateX(-50%);
     z-index: 2;
+  }
+
+  .scroll-arrow2 {
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: arrowAnim 5s ease-in-out infinite;
+    color: black;
+    left: 50%;
+    text-align: center;
+    transform: translateX(-50%);
+    z-index: 2;
+    padding-bottom: 10px;
   }
 
   .arrow-text {

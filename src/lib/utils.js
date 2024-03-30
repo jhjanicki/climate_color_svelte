@@ -60,13 +60,13 @@ export const getImage = (age) =>{
   if (age >= 6 && age < 13) {
     return "kid.png";
   }
-  if (age >= 13 && age < 20) {
+  if (age >= 13 && age < 25) {
     return "teen.png";
   }
-  if (age >= 20 && age < 55) {
+  if (age >= 25 && age < 65) {
     return "adult.png";
   }
-  if (age >= 55 && age <= 100) {
+  if (age >= 65 && age <= 100) {
     return "old.png";
   }
 }

@@ -26,7 +26,7 @@
       <td>Temp anomaly at age {currentAge}: {currentYearTemp}</td>
     </tr>
     <tr style="background-color: {diffTempColor}">
-      <td>Difference between selected and birth years: {diffTemp}</td>
+      <td>Temp anomaly difference between two years: {diffTemp}</td>
     </tr>
   </tbody>
 </table>

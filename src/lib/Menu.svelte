@@ -6,33 +6,49 @@
     currentScenario,
   } from "../store/store";
   import { scenarioMap } from "./utils";
+
+  let width = 200;
 </script>
 
-<div id="menu">
+<div id="menu" bind:clientWidth={width}>
   <div id="menuInner">
-    <span class="numberSmall numberYou">1</span><b>Your birth year:</b>
-    <span id="birthyearMenu" class="menuItem"
-      >{$yourBirthYear ? $yourBirthYear : ""}</span
-    >
-
-    <span class="numberSmall numberCharacter">2</span><b>Famous person:</b>
-    <span id="celebrityMenu" class="menuItem"
-      >{$selectedPerson
-        ? `${$selectedPerson}, born in ${$selectedPersonBirthYear}`
-        : ""}</span
-    >
-
-    <span class="numberSmall numberScenario">3</span><b>Scenario:</b>
-    <span id="scenarioMenu" class="menuItem"
-      >{$currentScenario ? scenarioMap($currentScenario) : ""}</span
-    >
-    <br />
-    <span class="legend">-0.4°C </span><img
-      class="legend"
-      id="legendMini"
-      src="./stripe2.svg"
-    />
-    <span class="legend"> 4.8°C</span>
+    <div class="inline selection">
+      <span class="numberSmall numberYou">1</span><b>Your birth year:</b>
+      <span id="birthyearMenu" class="menuItem"
+        >{$yourBirthYear ? $yourBirthYear : ""}</span
+      >
+    </div>
+    {#if width < 700}
+      <br />
+    {/if}
+    <div class="inline selection">
+      <span class="numberSmall numberCharacter">2</span><b>Famous person:</b>
+      <span id="celebrityMenu" class="menuItem"
+        >{$selectedPerson
+          ? `${$selectedPerson}, born in ${$selectedPersonBirthYear}`
+          : ""}</span
+      >
+    </div>
+    {#if width < 700}
+      <br />
+    {/if}
+    <div class="inline selection">
+      <span class="numberSmall numberScenario">3</span><b>Scenario:</b>
+      <span id="scenarioMenu" class="menuItem"
+        >{$currentScenario ? scenarioMap($currentScenario) : ""}</span
+      >
+    </div>
+    {#if width < 800 || (width > 1100 && width < 1600)}
+      <br />
+    {/if}
+    <div class="inline" id="legendWrapper">
+      <span class="legend">-0.4°C </span><img
+        class="legend"
+        id="legendMini"
+        src="./stripe2.svg"
+      />
+      <span class="legend"> 4.8°C</span>
+    </div>
   </div>
 </div>
 
@@ -85,7 +101,12 @@
     max-width: 250px;
   }
 
-  br {
+  .inline {
+    display: inline;
+    height: auto;
+  }
+
+  /* br {
     display: none;
   }
 
@@ -99,11 +120,19 @@
     br {
       display: block;
     }
-  }
+  } */
 
   @media (max-width: 700px) {
     #menuInner {
       width: 100%;
+    }
+    .selection {
+      margin: 3px 0px 0px 10px;
+      display: inline-block;
+    }
+
+    #legendWrapper {
+      margin: 2px 0px 0px 10px;
     }
   }
 </style>
