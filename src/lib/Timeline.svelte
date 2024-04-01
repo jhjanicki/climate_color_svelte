@@ -64,6 +64,15 @@
 
   onMount(() => {
     gsap.registerPlugin(TextPlugin);
+
+    // Add event listener on component mount
+    window.addEventListener("resize", reverse);
+
+    // Cleanup function
+    return () => {
+      // Remove event listener on component unmount
+      window.removeEventListener("resize", reverse);
+    };
   });
 
   $: getColor = (d) => {
@@ -513,13 +522,13 @@
         <rect
           class="ageRect"
           x={+($yourBirthYear + currentYIndex) === 2023
-            ? center - 200
+            ? center - 160
             : center - ageRectWidth / 2}
           y={yScale(currentYIndex + 2) + 40}
           width={+($yourBirthYear + currentYIndex) === 2023
-            ? 400
+            ? 320
             : ageRectWidth}
-          height={+($yourBirthYear + currentYIndex) === 2023 ? 160 : 30}
+          height={+($yourBirthYear + currentYIndex) === 2023 ? 170 : 30}
           rx={5}
           ry={5}
           fill={"white"}
@@ -551,16 +560,19 @@
             {"warmest on record, with global"}
           </tspan>
           <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="2.2em">
-            {"temperatures rising around 1.45°C above"}
+            {"temperatures rising around 1.45°C"}
           </tspan>
           <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="3.3em">
-            {"the 1850-1900 average, according to WMO."}
+            {"above the 1850-1900 average, according"}
           </tspan>
           <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="4.4em">
-            {"After 2023, yearly temperature anomalies are"}
+            {" to WMO. After 2023, yearly temperature"}
           </tspan>
           <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="5.5em">
-            {`projected under the ${scenarioMap($currentScenario).toLowerCase()} scenario.`}
+            {`anomalies are projected under the`}
+          </tspan>
+          <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="6.6em">
+            {`${scenarioMap($currentScenario).toLowerCase()} scenario.`}
           </tspan>
         </text>
 

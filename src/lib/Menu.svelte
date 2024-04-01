@@ -58,7 +58,7 @@
     width: 100%;
     height: auto;
     position: absolute;
-    top: 0px;
+    top: -1px;
     right: 0px;
     background-color: white;
     box-shadow: 1px 1px 5px -3px rgba(0, 0, 0, 0.5);
@@ -105,22 +105,6 @@
     display: inline;
     height: auto;
   }
-
-  /* br {
-    display: none;
-  }
-
-  @media (max-width: 1600px) AND (min-width: 1100px) {
-    br {
-      display: block;
-    }
-  }
-
-  @media (max-width: 800px) {
-    br {
-      display: block;
-    }
-  } */
 
   @media (max-width: 700px) {
     #menuInner {

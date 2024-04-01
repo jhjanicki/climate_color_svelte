@@ -47,4 +47,10 @@
     margin-left: auto;
     margin-right: auto;
   }
+
+  @media (max-width: 600px) {
+    thead {
+      height: 70px;
+    }
+  }
 </style>

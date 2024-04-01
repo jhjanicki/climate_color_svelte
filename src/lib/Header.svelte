@@ -42,6 +42,7 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 30px;
   }
 
   .headerText p {
@@ -50,8 +51,8 @@
 
   @media (max-width: 700px) {
     .headerText h1 {
-      font-size: 60px;
-      line-height: 70px;
+      font-size: 55px;
+      line-height: 60px;
     }
 
     .headerText h3 {

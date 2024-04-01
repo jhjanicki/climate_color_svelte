@@ -13,7 +13,7 @@
 
   let width = 200;
 
-  const height = 500;
+  $: height = width > 700 ? 450 : 300;
   const margin = {
     top: 50,
     bottom: 30,

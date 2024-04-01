@@ -15,7 +15,7 @@
     2023 the colors show projected temperatures based on the five Shared Socioeconomic
     Pathways according to IPCC.
   </p>
-  <img id="legend" src="./stripe.svg" />
+  <img id="legend" src="./stripe2.png" />
 </div>
 
 <style>
@@ -33,10 +33,22 @@
   }
 
   #legend {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     max-width: 550px;
     margin-left: auto;
     margin-right: auto;
     display: block;
+  }
+
+  @media (max-width: 600px) {
+    #legend {
+      max-width: 450px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    #legend {
+      max-width: 350px;
+    }
   }
 </style>

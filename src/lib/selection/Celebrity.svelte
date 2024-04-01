@@ -91,7 +91,7 @@
     display: inline-block;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1202px) {
     #celebrityContainer {
       text-align: center;
     }

@@ -102,6 +102,10 @@
     transition: 0.3s transform ease;
   }
 
+  ul {
+    list-style-type: none;
+  }
+
   @keyframes fadeInUp {
     from {
       transform: translate3d(0, 30px, 0);

@@ -99,14 +99,14 @@
         <YearSlider />
       </div>
       <div class="column" id="celebritySelection">
-        <p class="instruction">
+        <p class="instruction" id="celebrityInstruction">
           <span class="number numberCharacter">2</span>
           <span class="colorCharacter"
             >Select a one of the following people</span
           >
         </p>
         <Celebrity />
-        <p class="note">
+        <p class="note" id="celebrityNote">
           Color of the tiles represent the temperature anomaly of each
           individual's birth year.
         </p>
@@ -179,18 +179,17 @@
     <button id="download" class="button" on:click={captureScreenshot}
       >Download</button
     >
+    <div class="conclusion {$started ? '' : 'none'}">
+      <p>
+        Too further explore and see the summary for a year, select a year from
+        your stripes above
+      </p>
+      <div class="scroll-arrow2">↓</div>
+    </div>
   </div>
 
   <Stripe />
 
-  <div class="conclusion {$started ? '' : 'none'}">
-    <div class="scroll-arrow2">↑</div>
-
-    <p>
-      Too further explore and see the summary for a year, select a year from
-      your stripes above
-    </p>
-  </div>
   <Profile />
 {/if}
 
@@ -277,8 +276,7 @@
   }
 
   .button {
-    margin-left: auto;
-    margin-right: auto;
+    margin: -20px auto 40px auto;
     text-transform: uppercase;
     padding: 4px 8px;
     width: 100px;
@@ -298,7 +296,7 @@
 
   .conclusion {
     max-width: 500px;
-    padding: 20px;
+    padding: 10px;
     margin: auto;
     font-size: 18px;
     line-height: 25px;
@@ -345,6 +343,7 @@
 
   .scroll-arrow2 {
     max-width: 200px;
+    margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
     animation: arrowAnim 5s ease-in-out infinite;
@@ -378,6 +377,18 @@
   @media (max-width: 950px) {
     .row {
       column-gap: 90px;
+    }
+  }
+
+  @media (max-width: 1202px) {
+    #celebrityInstruction {
+      text-align: center;
+    }
+    #celebrityNote {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 400px;
+      text-align: center;
     }
   }
 </style>
