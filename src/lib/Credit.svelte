@@ -21,10 +21,6 @@
     Data / Development / Narrative: Julia Janicki
     <br />
     Design / illustrtion: Daisy Chung
-    <br />
-    Text Edit: Joyce Chou
-    <br />
-    Additional help: Jacki Whisenant
   </p>
 </div>
 
@@ -55,6 +51,10 @@
     .row {
       column-gap: 20px;
       max-width: 90vw;
+    }
+
+    p {
+      font-size: 14px;
     }
   }
 

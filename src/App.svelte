@@ -169,7 +169,7 @@
       <span id="tempHigh"
         >{$yourDeathYearTemp == "-1.00"
           ? "unsure (no data after 2100)"
-          : $yourDeathYearTemp + "°C"}</span
+          : $yourDeathYearTemp.toString().substring(0, 4) + "°C"}</span
       >
       in
       <span id="yearHigh">{$yourDeathYear}</span>, under the

@@ -109,6 +109,7 @@
   @media (max-width: 700px) {
     #menuInner {
       width: 100%;
+      font-size: 14px;
     }
     .selection {
       margin: 3px 0px 0px 10px;

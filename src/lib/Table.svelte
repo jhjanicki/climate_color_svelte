@@ -50,7 +50,22 @@
 
   @media (max-width: 600px) {
     thead {
+      vertical-align: top;
+      height: 50px;
+    }
+    table {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 450px) {
+    thead {
+      vertical-align: top;
       height: 70px;
+    }
+
+    img {
+      height: 120px;
     }
   }
 </style>

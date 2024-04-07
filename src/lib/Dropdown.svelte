@@ -1,6 +1,11 @@
 <script>
-  import { currentScenario } from "../store/store";
+  import {
+    currentScenario,
+    yourDeathYearTemp,
+    yourDeathYear,
+  } from "../store/store";
   import { scenarioMap } from "../lib/utils";
+  import { data } from "../assets/data/temperatureData";
 
   let active = false;
   let scenarios = ["ssp119", "ssp126", "ssp245", "ssp370", "ssp585"];
@@ -11,6 +16,9 @@
 
   const closeDropdown = (scenario) => {
     $currentScenario = scenario;
+    $yourDeathYearTemp = data.filter((d) => d.Year == $yourDeathYear)[0][
+      $currentScenario
+    ];
     active = false;
   };
 </script>

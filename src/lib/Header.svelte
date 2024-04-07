@@ -58,5 +58,9 @@
     .headerText h3 {
       font-size: 18px;
     }
+
+    .headerText {
+      background: none;
+    }
   }
 </style>

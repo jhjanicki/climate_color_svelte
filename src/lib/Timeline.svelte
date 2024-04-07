@@ -100,22 +100,24 @@
   let tlRing = gsap.timeline();
 
   const mouseoverEl = () => {
-    if (clickable) {
-      moveElementHover(tl2, ".personBg1", -10);
-      moveElementHover(tl2, ".personBg2", 10);
-      moveElementHover(tl2, ".you", -10);
-      moveElementHover(tl2, ".celebrity", 10);
-      moveElementHover(tl2, ".temperature1", -10);
-      moveElementHover(tl2, ".temperature2", 10);
+    if (width >= 600) {
+      if (clickable) {
+        moveElementHover(tl2, ".personBg1", -10);
+        moveElementHover(tl2, ".personBg2", 10);
+        moveElementHover(tl2, ".you", -10);
+        moveElementHover(tl2, ".celebrity", 10);
+        moveElementHover(tl2, ".temperature1", -10);
+        moveElementHover(tl2, ".temperature2", 10);
 
-      tlRing.to(".ring", 1, {
-        opacity: 0.75,
-        stagger: {
-          each: 0.5,
-          repeat: -1,
-        },
-      });
-      tlRing.play();
+        tlRing.to(".ring", 1, {
+          opacity: 0.75,
+          stagger: {
+            each: 0.5,
+            repeat: -1,
+          },
+        });
+        tlRing.play();
+      }
     }
   };
 
@@ -205,36 +207,38 @@
   };
 
   const rotate = () => {
-    if (clickable) {
-      let tl = gsap.timeline();
-      disableScroll();
-      tlRing.pause();
-      gsap.to(".ring", 1, {
-        opacity: 0,
-      });
+    if (width >= 600) {
+      if (clickable) {
+        let tl = gsap.timeline();
+        disableScroll();
+        tlRing.pause();
+        gsap.to(".ring", 1, {
+          opacity: 0,
+        });
 
-      hideElements(tl, [".ageRect", ".ageText"]);
+        hideElements(tl, [".ageRect", ".ageText"]);
 
-      moveElement(tl, ".personBg1", 0.4, 45, 38, -55);
-      moveElement(tl, ".you", 0.4, 0, 40, -55);
-      moveElement(tl, ".personBg2", 0.4, 45, -38, 55);
-      moveElement(tl, ".celebrity", 0.4, 0, -40, 55);
+        moveElement(tl, ".personBg1", 0.4, 45, 38, -55);
+        moveElement(tl, ".you", 0.4, 0, 40, -55);
+        moveElement(tl, ".personBg2", 0.4, 45, -38, 55);
+        moveElement(tl, ".celebrity", 0.4, 0, -40, 55);
 
-      hideElements(tl, [".temperature1", ".temperature2"]);
-      showElement(tl, "#tempText1");
-      showElement(tl, "#tempText2");
+        hideElements(tl, [".temperature1", ".temperature2"]);
+        showElement(tl, "#tempText1");
+        showElement(tl, "#tempText2");
 
-      animateText(tl, "#tempText1", getText("text1"));
-      animateText(tl, "#tempText2", getText("text2"));
+        animateText(tl, "#tempText1", getText("text1"));
+        animateText(tl, "#tempText2", getText("text2"));
 
-      showElement(tl, ".circle", 4.5, 0.7);
-      showElement(tl, ".circleX", 4.5);
+        showElement(tl, ".circle", 4.5, 0.7);
+        showElement(tl, ".circleX", 4.5);
 
-      gsap.to(".ageText2023", 0.3, {
-        y: 40,
-      });
+        gsap.to(".ageText2023", 0.3, {
+          y: 40,
+        });
 
-      clickable = false;
+        clickable = false;
+      }
     }
   };
 
@@ -603,7 +607,7 @@
         class="title1"
         x={center / 2}
         y={60}
-        font-size={20}
+        font-size={width > 600 ? 20 : 16}
         font-weight={300}
         text-anchor={"middle"}
       >
@@ -613,7 +617,7 @@
         class="title2"
         x={center + center / 2}
         y={60}
-        font-size={20}
+        font-size={width > 600 ? 20 : 16}
         font-weight={300}
         text-anchor={"middle"}
       >
@@ -628,8 +632,11 @@
     width: 100%;
     margin-bottom: 100px;
   }
-  .circleX:hover,
-  .currentRect:hover {
-    cursor: pointer;
+
+  @media (min-width: 600px) {
+    .circleX:hover,
+    .currentRect:hover {
+      cursor: pointer;
+    }
   }
 </style>
