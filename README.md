@@ -1,47 +1,14 @@
-# Svelte + Vite
+# Climate colors
 
-This template should help get you started developing with Svelte in Vite.
+## Description
+WIP user-driven data story comparing your climate stripes (temp anomaly compared to 1850-1990) and another selected person's climate stripes, under a selected climate scenario.
 
-## Recommended IDE Setup
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+<img width="1650" alt="Screen Shot 2024-04-14 at 8 02 52 PM" src="https://github.com/jhjanicki/climate_color_svelte/assets/6565011/5e5738e8-57b0-4205-81c9-9d8a2bf6de87">
 
-## Need an official Svelte framework?
+<img width="1246" alt="Screen Shot 2024-04-14 at 8 02 14 PM" src="https://github.com/jhjanicki/climate_color_svelte/assets/6565011/01026bcf-b1ab-42fc-9f48-0f29d50fbfc5">
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+## Data
 
-## Technical considerations
+Annual temperature anomalies relative to the pre-industrial levels (1850-1900), using both historical (up to 2023) and projected (from 2023 onwards) data. Historical data from the World Meteorological Organization (WMO), calculating the mean of six datasets: HadCRUT5, NOAA, GlobalTemp, GISTEMP, ERA5 1, and JRA55.  Data for the projected temperature anomalies based on the five SSP scenarios after 2023 are from the IPCC Sixth Assessment report. Ideally, the historical and projected data would come from the same source, but IPCC’s historical data is not as up-to-date as WMO’s data. Because of this, we’ve chosen to combine two sources. 
 
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
