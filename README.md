@@ -3,10 +3,10 @@
 ## Description
 WIP user-driven data story comparing your climate stripes (temp anomaly compared to 1850-1990) and another selected person's climate stripes, under a selected climate scenario.
 
+<img width="1246" alt="Screen Shot 2024-04-14 at 8 02 14 PM" src="https://github.com/jhjanicki/climate_color_svelte/assets/6565011/01026bcf-b1ab-42fc-9f48-0f29d50fbfc5">
 
 <img width="1650" alt="Screen Shot 2024-04-14 at 8 02 52 PM" src="https://github.com/jhjanicki/climate_color_svelte/assets/6565011/5e5738e8-57b0-4205-81c9-9d8a2bf6de87">
 
-<img width="1246" alt="Screen Shot 2024-04-14 at 8 02 14 PM" src="https://github.com/jhjanicki/climate_color_svelte/assets/6565011/01026bcf-b1ab-42fc-9f48-0f29d50fbfc5">
 
 ## Data
 
