@@ -561,7 +561,7 @@
             {"2023 has been confirmed to be the"}
           </tspan>
           <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="1.1em">
-            {"warmest on record, with global"}
+            {"warmest year on record, with global"}
           </tspan>
           <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="2.2em">
             {"temperatures rising around 1.45°C"}
@@ -570,13 +570,13 @@
             {"above the 1850-1900 average, according"}
           </tspan>
           <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="4.4em">
-            {" to WMO. After 2023, yearly temperature"}
+            {" to WMO. After 2023, projections"}
           </tspan>
           <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="5.5em">
-            {`anomalies are projected under the`}
+            {`indicate yearly temperature anomalies`}
           </tspan>
           <tspan x={center} y={yScale(currentYIndex + 2) + 90} dy="6.6em">
-            {`${scenarioMap($currentScenario).toLowerCase()} scenario.`}
+            {`under the ${scenarioMap($currentScenario).toLowerCase()} scenario.`}
           </tspan>
         </text>
 

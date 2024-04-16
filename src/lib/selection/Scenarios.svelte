@@ -81,6 +81,7 @@
 
   .scenarioWrapper:nth-child(4) {
     background-color: #b00a8c;
+    color: white;
   }
 
   .scenarioWrapper:nth-child(5) {

@@ -46,8 +46,8 @@
   </div>
   <Range on:change={updateSlider} id="slider" />
   <p id="birthYearInstruction" class="note">
-    Background color represents the temperature anomaly of your birth year.
-    <br />Year from 1924 to 2023.
+    The background color represents the temperature anomaly of your birth year.
+    <br />Years range from 1924 to 2023.
   </p>
 </div>
 
@@ -60,7 +60,7 @@
 
   #birthYearContainer img {
     margin: 10px 0px;
-    width: 140px;
+    width: 160px;
   }
 
   #birthYearContainer #imgContainer {

@@ -1,19 +1,22 @@
 <div class="intro">
   <p class="textBlock">
-    Just over the last few years, wildfires, heatwaves, extreme weather events
-    have become visibly more frequent, with ever increasing record-breaking
-    temperatures. These are symptoms of change that has been happening in the
-    background for some time now. How does our current world compared to that
-    when we were born? How has our planet changed throughout the course of our
-    lives, short on the scale of a planet but long given the pace of global
-    warming? Finally let's think about how our collective decisions can shape a
-    future for the youth and humans who are not yet born.
+    In recent years, wildfires, heatwaves, and other extreme weather phenomena
+    have become more frequent, accompanied by a rise in record-breaking
+    temperatures. These events, symptoms of larger changes worldwide, beg the
+    question: How has the planet evolved throughout our lifetimes? Or more
+    specifically, how does our current world compare to the world when we were
+    born? Human existence may be short in the grand scheme of things, but our
+    impact has accelerated the pace of global warming. Looking ahead, it's
+    important to consider how our decisions today shape the future—not only for
+    ourselves but also for future generations.
+
     <br /><br />
-    Each of the stripes below represent the annual temperature change relative to
-    pre-industrial levels, meaning the long-term average of 1850-1900. Until 2023
-    we are seeing historical temperature anomalies calculated by the WMO, while after
-    2023 the colors show projected temperatures based on the five Shared Socioeconomic
-    Pathways according to IPCC.
+    Below, each stripe represents the annual temperature change relative to pre-industrial
+    levels, defined as the long-term average between 1850-1900. Historical temperature
+    anomalies calculated by the World Meteorological Organization (WMO) are depicted
+    until 2023, while projections based on the Intergovernmental Panel on Climate
+    Change's (IPCC) five Shared Socioeconomic Pathways are represented from 2023
+    onwards.
   </p>
   <img id="legend" src="./stripe2.png" />
 </div>

@@ -102,13 +102,13 @@
         <p class="instruction" id="celebrityInstruction">
           <span class="number numberCharacter">2</span>
           <span class="colorCharacter"
-            >Select a one of the following people</span
-          >
+            >Select one of the following people for comparison
+          </span>
         </p>
         <Celebrity />
         <p class="note" id="celebrityNote">
-          Color of the tiles represent the temperature anomaly of each
-          individual's birth year.
+          The background color of the tiles represents the temperature anomaly
+          of each individual's birth year.
         </p>
       </div>
     </div>
@@ -119,19 +119,20 @@
           <span class="colorScenario">Select a projected climate scenario</span>
         </p>
         <p>
-          Shared Socioeconomic Pathways (SSPs) are climate change scenarios
-          projecting societal, demographic and economic changes up to 2100.
+          Shared Socioeconomic Pathways (SSPs) are five climate change scenarios
+          that project different societal, demographic, and economic changes up
+          to the year 2100. Pick one of these scenarios, ordered from best to
+          worst case, to see the projected annual temperature anomalies from
+          2023 to 2100.
 
           <!-- According to IPCC, in the SSP labels, the first number refers to the
           assumed shared socio-economic pathway (1: Sustainability, 2: Middle of
           the Road, 3: Regional Rivalry, 4: Inequality, 5: Fossil-fueled
           Development), and the second refers to the approximate global
           effective radiative forcing (ERF) in 2100.  -->
-          Pick one of these scenarios, ordered from best to worst case, to see the
-          proejcted annual temperature anomalies after 2023 up until 2100.
           <span class="note"
-            >Color of the tiles represent the temperature anomaly at 2100 for
-            each scenario.</span
+            >The background color of the tiles represents the temperature
+            anomaly at 2100 for each scenario.</span
           >
         </p>
       </div>
@@ -181,8 +182,8 @@
     >
     <div class="conclusion {$started ? '' : 'none'}">
       <p>
-        Too further explore and see the summary for a year, select a year from
-        your stripes above
+        For more detail on temperature anomalies, select a year from one of the
+        colored stripes below.
       </p>
       <div class="scroll-arrow2">↓</div>
     </div>

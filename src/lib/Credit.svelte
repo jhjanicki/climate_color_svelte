@@ -1,26 +1,30 @@
 <div class="row">
   <p class="column">
     <b>Data:</b>
-    In this project we are visualizing the annual temperature anomalies relative
-    to the pre-industrial levels (1850-1900), using both historical (until 2023)
-    and projected (after 2023) data. We used historical data from the World Meteorological
-    Organization, which is the mean of six datasets: HadCRUT5, NOAA, GlobalTemp,
-    GISTEMP, ERA5 1, and JRA55. We also referenced the "State of the Global Climate
-    2023" report. The data for the projected temperature anomalies based on the five
-    SSP scenarios after 2023 are from the IPCC Sixth Assessment report, which is
-    the most updated scenario data we can find. Ideally the historical and projected
-    data would be from the same source, but IPCC historical data is not as updated
-    as the WMO data so we decided to combine two sources, if someonoe has access
-    to more updated projected temperatures after 2024 for the SSP scenarios data
-    we'd be happy to use the more updated data. The original climate stripes idea
-    was developed by Ed Hawkins, this is one of the many adaptations.
+    In this project, we visualize the annual temperature anomalies relative to the
+    pre-industrial levels (1850-1900), using both historical (up to 2023) and projected
+    (from 2023 onwards) data. We used historical data from the World Meteorological
+    Organization (WMO), calculating the mean of six datasets: HadCRUT5, NOAA, GlobalTemp,
+    GISTEMP, ERA5 1, and JRA55. We also referenced the WMO’s "State of the Global
+    Climate 2023" report. The data for the projected temperature anomalies based
+    on the five SSP scenarios after 2023 are from the IPCC Sixth Assessment report.
+    Ideally, the historical and projected data would come from the same source, but
+    IPCC’s historical data is not as up-to-date as WMO’s data. Because of this, we’ve
+    chosen to combine two sources. However, if more updated projected temperatures
+    after 2024 for the SSP scenarios are available, we'd be happy to use this data.
+    The original climate stripes concept was developed by Ed Hawkins; our adaptation
+    is one of many.
   </p>
   <br /><br />
   <p class="column">
     <b>Credit:</b>
-    Data / Development / Narrative: Julia Janicki
+    Data / Development / Interaction design / Narrative: Julia Janicki
     <br />
-    Design / illustrtion: Daisy Chung
+    Design / Illustrtion: Daisy Chung
+    <br />
+    Text edit: Joyce Chou
+    <br />
+    Additional help: Jacki Whisenant
   </p>
 </div>
 

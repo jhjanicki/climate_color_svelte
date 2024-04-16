@@ -45,7 +45,9 @@
   {#each celebrityData as d, i}
     <div
       class="celebrityWrapper {selectedElementIndex === i ? 'selected' : ''}"
-      style="background-color: {tempColorScale(d.temp)}"
+      style="background-color: {$currentScenario === 'ssp119'
+        ? tempColorScale(d.temp2)
+        : tempColorScale(d.temp)}"
       on:click={(event) => update(event, i)}
     >
       <img class="icon" id={`icon${d.year}`} src={`./${d.imgName}`} />
