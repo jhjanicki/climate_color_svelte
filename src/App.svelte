@@ -30,6 +30,7 @@
   } from "./store/store";
 
   let tl, tl2;
+  $: ageZero = false;
 
   const start = () => {
     if ($yourBirthYear && $selectedPersonBirthYear && $currentScenario) {
@@ -125,11 +126,6 @@
           worst case, to see the projected annual temperature anomalies from
           2023 to 2100.
 
-          <!-- According to IPCC, in the SSP labels, the first number refers to the
-          assumed shared socio-economic pathway (1: Sustainability, 2: Middle of
-          the Road, 3: Regional Rivalry, 4: Inequality, 5: Fossil-fueled
-          Development), and the second refers to the approximate global
-          effective radiative forcing (ERF) in 2100.  -->
           <span class="note"
             >The background color of the tiles represents the temperature
             anomaly at 2100 for each scenario.</span
@@ -147,7 +143,7 @@
         >Compare your temperatures with <span id="arrowPerson"
           >{$selectedPerson}</span
         >
-        from age 1 to 100, under the
+        from age {ageZero ? "0 to 99" : "1 to 100"}, under the
         <span id="arrowScenario"
           >{$currentScenario
             ? scenarioMap($currentScenario).toLowerCase()
@@ -155,10 +151,14 @@
         > scenario</span
       >
     </div>
+    <div id="ageCheckbox" class={$started ? "show" : "none"}>
+      <input type="checkbox" bind:checked={ageZero} />
+      Change to age 0 to 99, depending on your culture
+    </div>
   </div>
 </div>
 
-<Timeline />
+<Timeline {ageZero} />
 
 {#if $started}
   <div class="conclusion {$started ? '' : 'none'}">
@@ -191,7 +191,7 @@
 
   <Stripe />
 
-  <Profile />
+  <Profile {ageZero} />
 {/if}
 
 <div class={$started ? "" : "none"}>
@@ -359,6 +359,15 @@
   .arrow-text {
     display: inline-block;
     animation: blink 5s ease-in-out infinite;
+  }
+
+  #ageCheckbox {
+    margin-top: 50px;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-weight: 300;
   }
   @keyframes arrowAnim {
     0%,

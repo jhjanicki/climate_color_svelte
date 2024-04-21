@@ -17,6 +17,8 @@
   import { gsap } from "gsap";
   import TextPlugin from "gsap/TextPlugin";
 
+  export let ageZero;
+
   const margin = {
     top: 40,
     right: 0,
@@ -364,7 +366,7 @@
       id="svg"
       {width}
       height={height + margin.top}
-      transform={"translate(0," + margin.top + ")"}
+      transform={`translate(0,${margin.top - 20})`}
       bind:this={svg}
     >
       <g id="background" transform={`translate(0,${margin.top})`}>
@@ -545,7 +547,10 @@
           font-size={20}
           font-weight={300}
           text-anchor={"middle"}
-          fill={"black"}>{"Age: " + (currentYIndex + 1)}</text
+          fill={"black"}
+          >{ageZero
+            ? `Age: ${currentYIndex}`
+            : `Age: ${currentYIndex + 1}`}</text
         >
         <text
           class="ageText2023"

@@ -1,10 +1,8 @@
 <script>
-  import * as d3 from "d3";
   import {
     currentScenario,
     yourData,
     yourBirthYearTemp,
-    yourBirthYear,
     yourAgeProfile,
     yearProfile,
     selectedPerson,
@@ -16,6 +14,8 @@
   } from "../store/store";
   import Table from "./Table.svelte";
   import { tempColorScale, getTemp, getImage } from "../lib/utils";
+
+  export let ageZero;
 
   $: getColor = (d) => {
     return tempColorScale(d);
@@ -30,8 +30,6 @@
     $selectedPersonData[$yourAgeProfile - 1][$currentScenario]
       ? $selectedPersonData[$yourAgeProfile - 1][$currentScenario]
       : "";
-
-  $: console.log($selectedPersonData[$yourAgeProfile - 1]);
 </script>
 
 {#if started && $stripeCliked && $yearProfile}
@@ -41,7 +39,7 @@
         person={"You"}
         year={$yearProfile}
         image={getImage($yourAgeProfile)}
-        currentAge={$yourAgeProfile}
+        currentAge={ageZero ? $yourAgeProfile - 1 : $yourAgeProfile}
         birthYearColor={getColor($yourBirthYearTemp)}
         birthYearTemp={getTemp($yourBirthYearTemp, true)}
         currentYearColor={currentYourTemp == "-1.00"
@@ -63,7 +61,7 @@
         person={$selectedPerson}
         year={+$selectedPersonBirthYear + +$yourAgeProfile - 1}
         image={`${$selectedPerson.replaceAll(" ", "_")}.png`}
-        currentAge={$yourAgeProfile}
+        currentAge={ageZero ? $yourAgeProfile - 1 : $yourAgeProfile}
         birthYearColor={getColor($selectedPersonBirthYearTemp)}
         birthYearTemp={getTemp($selectedPersonBirthYearTemp, true)}
         currentYearColor={currentSelectedPersonTemp == "-1.00"
